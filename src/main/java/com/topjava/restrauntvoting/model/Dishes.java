@@ -21,7 +21,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(callSuper = true)
-public class Menu extends NamedEntity implements HasIdAndEmail {
+public class Dishes extends NamedEntity implements HasIdAndEmail {
 
     @Column(name = "date")
     @NotNull
@@ -41,7 +41,7 @@ public class Menu extends NamedEntity implements HasIdAndEmail {
     @JsonIgnore
     private Restaurant restaurant;
 
-    public Menu(Integer id, String name, LocalDate date, String description, Integer price) {
+    public Dishes(Integer id, String name, LocalDate date, String description, Integer price) {
         super(id, name);
         this.date = date;
         this.description = description;

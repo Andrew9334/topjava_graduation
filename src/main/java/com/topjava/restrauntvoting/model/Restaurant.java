@@ -5,8 +5,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
@@ -20,14 +18,14 @@ public class Restaurant extends NamedEntity{
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("name asc")
 //    @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<Menu> menus;
+    private List<Dishes> dishes;
 
-    public Restaurant(Integer id, String name, List<Menu> menus) {
+    public Restaurant(Integer id, String name, List<Dishes> dishes) {
         super(id, name);
-        this.menus = menus;
+        this.dishes = dishes;
     }
 
-    public List<Menu> getMenus() {
-        return menus;
+    public List<Dishes> getDishes() {
+        return dishes;
     }
 }
