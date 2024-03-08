@@ -1,6 +1,6 @@
-package com.topjava.topjavarestrauntvoting.model;
+package com.topjava.restrauntvoting.model;
 
-import com.topjava.topjavarestrauntvoting.validation.NoHtml;
+import com.topjava.restrauntvoting.validation.NoHtml;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotBlank;

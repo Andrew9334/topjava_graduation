@@ -1,28 +1,31 @@
-package com.topjava.topjavarestrauntvoting.model;
+package com.topjava.restrauntvoting.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
-import com.topjava.topjavarestrauntvoting.HasIdAndEmail;
+import com.topjava.restrauntvoting.HasIdAndEmail;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Entity
-@Table(name = "menu", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date_time"}, name = "meal_unique_user_datetime_idx")})
+//@Table(name = "menu", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "name"}, name = "menu_unique__idx")})
+//@Table(name = "menu")
+@Table(name = "menu", uniqueConstraints = @UniqueConstraint(columnNames = {"restaurant_id", "date", "name"},
+        name = "menu_unique_rest_date_name_idx"))
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(callSuper = true)
 public class Menu extends NamedEntity implements HasIdAndEmail {
 
-    @Column(name = "date_time")
+    @Column(name = "date")
     @NotNull
-    private LocalDateTime dateTime;
+    private LocalDate date;
 
     @Column(name = "description", nullable = false)
     @NotNull
@@ -33,26 +36,23 @@ public class Menu extends NamedEntity implements HasIdAndEmail {
     private Integer price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "restaurant_id", nullable = false)
     @JsonIgnore
-    private Restaurant restaraunt;
+    private Restaurant restaurant;
 
-    public Menu(Integer id, String name, LocalDateTime dateTime, String description, Integer price) {
+    public Menu(Integer id, String name, LocalDate date, String description, Integer price) {
         super(id, name);
-        this.dateTime = dateTime;
+        this.date = date;
         this.description = description;
         this.price = price;
     }
 
     @Schema(hidden = true)
     public LocalDate getDate() {
-        return dateTime.toLocalDate();
+        return date;
     }
 
-    @Schema(hidden = true)
-    public LocalTime getTime() {
-        return dateTime.toLocalTime();
-    }
 
     @Override
     public String getEmail() {
