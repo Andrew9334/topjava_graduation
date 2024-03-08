@@ -1,4 +1,4 @@
-package com.topjava.topjavarestrauntvoting.validation;
+package com.topjava.restrauntvoting.validation;
 
 import jakarta.validation.Payload;
 

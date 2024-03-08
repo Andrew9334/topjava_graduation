@@ -1,8 +1,8 @@
-package com.topjava.topjavarestrauntvoting.model;
+package com.topjava.restrauntvoting.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.topjava.topjavarestrauntvoting.HasIdAndEmail;
-import com.topjava.topjavarestrauntvoting.validation.NoHtml;
+import com.topjava.restrauntvoting.HasIdAndEmail;
+import com.topjava.restrauntvoting.validation.NoHtml;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -35,7 +35,7 @@ public class User extends NamedEntity implements HasIdAndEmail {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @Column(name = "enavled", nullable = false, columnDefinition = "bool default now()")
+    @Column(name = "enavled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled = true;
 
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()", updatable = false)

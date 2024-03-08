@@ -1,4 +1,4 @@
-package com.topjava.topjavarestrauntvoting;
+package com.topjava.restrauntvoting;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.util.Assert;

@@ -1,4 +1,4 @@
-package com.topjava.topjavarestrauntvoting.model;
+package com.topjava.restrauntvoting.model;
 
 import org.springframework.security.core.GrantedAuthority;
 
