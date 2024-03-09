@@ -39,7 +39,6 @@ VALUES ('Muse'),
        ('Porto Bello'),
        ('Oniro');
 
-
 INSERT INTO MENU (name, date, description, price, restaurant_id)
 VALUES ('menu', '2024-03-05', 'Beef steak', 500, 1),
        ('menu', '2024-03-05', 'Margarita', 300, 2),
@@ -47,3 +46,9 @@ VALUES ('menu', '2024-03-05', 'Beef steak', 500, 1),
        ('menu1', '2024-03-05', 'Bread', 150, 1),
        ('menu1', '2024-03-05', 'Soup', 250, 2),
        ('menu1', '2024-03-05', 'Grilled ribs', 250, 3);
+
+INSERT INTO VOTE (user_id, restaurant_id, date_time)
+VALUES (1, 1, '2024-03-09 11:00'),
+       (2, 2, '2024-03-09 10:00'),
+       (2, 1,'2024-03-09 15:00'),
+       (1, 3, '2024-03-09 16:00');

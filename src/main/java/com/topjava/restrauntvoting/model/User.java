@@ -1,5 +1,6 @@
 package com.topjava.restrauntvoting.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.topjava.restrauntvoting.HasIdAndEmail;
 import com.topjava.restrauntvoting.validation.NoHtml;
@@ -12,6 +13,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.*;
 
@@ -45,8 +48,8 @@ public class User extends NamedEntity implements HasIdAndEmail {
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_role",
-                    joinColumns = @JoinColumn(name = "user_id"),
-                    uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "role"}, name = "uk_user_role"))
+            joinColumns = @JoinColumn(name = "user_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "role"}, name = "uk_user_role"))
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles = EnumSet.noneOf(Role.class);
