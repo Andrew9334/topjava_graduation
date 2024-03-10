@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface VoteRepository extends BaseRepository<Dishes> {
+public interface VoteRepository extends BaseRepository<Vote> {
 
     @Query("SELECT v FROM Vote v WHERE v.id=:voteId ORDER BY v.dateTime DESC")
     List<Vote> getAll(int voteId);
