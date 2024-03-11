@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Transactional(readOnly = true)
-public interface DishesRepository extends BaseRepository<Dishes> {
+public interface DishRepository extends BaseRepository<Dishes> {
 
     @Query("SELECT d FROM Dishes d WHERE d.restaurant.id=:restaurantId ORDER BY d.date DESC")
     List<Dishes> getAll(int restaurantId);
