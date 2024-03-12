@@ -1,13 +1,10 @@
 package com.topjava.restrauntvoting.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
@@ -20,14 +17,14 @@ public class Restaurant extends NamedEntity{
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("name asc")
-    private List<Dishes> dishes;
+    private List<Dish> dishes;
 
-    public Restaurant(Integer id, String name, List<Dishes> dishes) {
+    public Restaurant(Integer id, String name, List<Dish> dishes) {
         super(id, name);
         this.dishes = dishes;
     }
 
-    public List<Dishes> getDishes() {
+    public List<Dish> getDishes() {
         return dishes;
     }
 }

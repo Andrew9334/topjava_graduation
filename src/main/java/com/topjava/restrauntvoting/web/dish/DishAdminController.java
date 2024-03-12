@@ -1,6 +1,6 @@
 package com.topjava.restrauntvoting.web.dish;
 
-import com.topjava.restrauntvoting.model.Dishes;
+import com.topjava.restrauntvoting.model.Dish;
 import com.topjava.restrauntvoting.repository.DishRepository;
 import com.topjava.restrauntvoting.service.DishService;
 import com.topjava.restrauntvoting.to.DishesTo;
@@ -25,7 +25,7 @@ public class DishAdminController {
     private DishRepository repository;
     private DishService service;
 
-    public ResponseEntity<Dishes> get(@PathVariable("id") int id, @PathVariable("restaurantId") int restaurantId) {
+    public ResponseEntity<Dish> get(@PathVariable("id") int id, @PathVariable("restaurantId") int restaurantId) {
         log.info("get dish {} from restaurant {}", id, restaurantId);
         return ResponseEntity.of(repository.get(restaurantId, id));
     }
@@ -34,8 +34,8 @@ public class DishAdminController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") int id, @PathVariable("restaurantId") int restaurantId) {
         log.info("delete {} for user {}", id, restaurantId);
-        Dishes dishes = repository.getBelonged(restaurantId, id);
-        repository.delete(dishes);
+        Dish dish = repository.getBelonged(restaurantId, id);
+        repository.delete(dish);
     }
 
     @GetMapping
@@ -44,7 +44,7 @@ public class DishAdminController {
         return repository.getAll(restaurantId);
     }
 
-    public void update(@PathVariable("restaurantId") int restaurantId, @PathVariable("id") int id, @Valid @RequestBody Dishes dishes) {
-        log.info("update {} for restaurant {}", dishes, restaurantId);
+    public void update(@PathVariable("restaurantId") int restaurantId, @PathVariable("id") int id, @Valid @RequestBody Dish dish) {
+        log.info("update {} for restaurant {}", dish, restaurantId);
     }
 }

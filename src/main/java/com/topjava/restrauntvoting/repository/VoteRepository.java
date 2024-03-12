@@ -1,7 +1,6 @@
 package com.topjava.restrauntvoting.repository;
 
 import com.topjava.restrauntvoting.error.DataConflictException;
-import com.topjava.restrauntvoting.model.Dishes;
 import com.topjava.restrauntvoting.model.Vote;
 import org.springframework.data.jpa.repository.Query;
 

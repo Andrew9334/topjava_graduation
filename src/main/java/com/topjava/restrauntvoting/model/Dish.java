@@ -10,7 +10,6 @@ import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,7 +18,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(callSuper = true)
-public class Dishes extends NamedEntity implements HasIdAndEmail {
+public class Dish extends NamedEntity implements HasIdAndEmail {
 
     @Column(name = "date")
     @NotNull
@@ -39,7 +38,7 @@ public class Dishes extends NamedEntity implements HasIdAndEmail {
     @JsonIgnore
     private Restaurant restaurant;
 
-    public Dishes(Integer id, String name, LocalDateTime date, String description, Integer price) {
+    public Dish(Integer id, String name, LocalDateTime date, String description, Integer price) {
         super(id, name);
         this.date = date;
         this.description = description;
