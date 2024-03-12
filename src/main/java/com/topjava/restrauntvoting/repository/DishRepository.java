@@ -2,6 +2,7 @@ package com.topjava.restrauntvoting.repository;
 
 import com.topjava.restrauntvoting.error.DataConflictException;
 import com.topjava.restrauntvoting.model.Dishes;
+import com.topjava.restrauntvoting.to.DishesTo;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +13,7 @@ import java.util.Optional;
 public interface DishRepository extends BaseRepository<Dishes> {
 
     @Query("SELECT d FROM Dishes d WHERE d.restaurant.id=:restaurantId ORDER BY d.date DESC")
-    List<Dishes> getAll(int restaurantId);
+    List<DishesTo> getAll(int restaurantId);
 
     @Query("SELECT d FROM Dishes d WHERE d.id =: id")
     Optional<Dishes> get(int restaurantId, int id);
