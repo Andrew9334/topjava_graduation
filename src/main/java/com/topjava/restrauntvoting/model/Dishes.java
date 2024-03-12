@@ -11,6 +11,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "menu", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "name"}, name = "dishes_unique_restaurant_datetime_idx")})
@@ -22,7 +23,7 @@ public class Dishes extends NamedEntity implements HasIdAndEmail {
 
     @Column(name = "date")
     @NotNull
-    private LocalDate date;
+    private LocalDateTime date;
 
     @Column(name = "description", nullable = false)
     @NotNull
@@ -38,7 +39,7 @@ public class Dishes extends NamedEntity implements HasIdAndEmail {
     @JsonIgnore
     private Restaurant restaurant;
 
-    public Dishes(Integer id, String name, LocalDate date, String description, Integer price) {
+    public Dishes(Integer id, String name, LocalDateTime date, String description, Integer price) {
         super(id, name);
         this.date = date;
         this.description = description;
@@ -46,7 +47,7 @@ public class Dishes extends NamedEntity implements HasIdAndEmail {
     }
 
     @Schema(hidden = true)
-    public LocalDate getDate() {
+    public LocalDateTime getDateTime() {
         return date;
     }
 

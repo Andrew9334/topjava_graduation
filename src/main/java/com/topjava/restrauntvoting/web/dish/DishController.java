@@ -1,8 +1,10 @@
 package com.topjava.restrauntvoting.web.dish;
 
 import com.topjava.restrauntvoting.model.Dishes;
+import com.topjava.restrauntvoting.model.Restaurant;
 import com.topjava.restrauntvoting.repository.DishRepository;
 import com.topjava.restrauntvoting.service.DishService;
+import com.topjava.restrauntvoting.to.DishesTo;
 import com.topjava.restrauntvoting.web.AuthUser;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -22,19 +26,10 @@ public class DishController {
     static final String REST_URL = "/api/profile/dishes";
 
     private final DishRepository repository;
-    private final DishService service;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Dishes> get(@AuthenticationPrincipal AuthUser authUser, @PathVariable int id) {
-        log.info("get dish {} for user {}", id, authUser.id());
-        return ResponseEntity.of(repository.get(authUser.id(), id));
-    }
-
-    @DeleteMapping("{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@AuthenticationPrincipal AuthUser authUser, @PathVariable int id) {
-        log.info("delete {} for user {}", id, authUser.id());
-        Dishes dishes = repository.getBelonged(authUser.id(), id);
-        repository.delete(dishes);
+    public List<DishesTo> getAll(@PathVariable("restaurantId") int restaurantId) {
+        log.info("getAll for restaurant {}", restaurantId);
+        return repository.getAll(restaurantId);
     }
 }
+
