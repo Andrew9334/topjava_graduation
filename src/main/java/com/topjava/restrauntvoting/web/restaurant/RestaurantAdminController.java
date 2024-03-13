@@ -31,8 +31,8 @@ public class RestaurantAdminController {
     private final RestaurantService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Restaurant> get(@AuthenticationPrincipal AuthUser authUser, @PathVariable int id) {
-        log.info("get restaurant {} for user {}", id, authUser.id());
+    public ResponseEntity<Restaurant> get(@PathVariable int id) {
+        log.info("get restaurant");
         return ResponseEntity.of(repository.get(id));
     }
 
