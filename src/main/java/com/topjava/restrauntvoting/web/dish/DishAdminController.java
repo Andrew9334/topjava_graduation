@@ -49,7 +49,7 @@ public class DishAdminController {
         return repository.getAll(restaurantId);
     }
 
-    @PutMapping(value = "{/id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@PathVariable("restaurantId") int restaurantId, @PathVariable("id") int id, @Valid @RequestBody Dish dish) {
         log.info("update {} for restaurant {}", dish, restaurantId);
