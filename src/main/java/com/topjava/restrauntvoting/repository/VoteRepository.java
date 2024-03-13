@@ -2,6 +2,7 @@ package com.topjava.restrauntvoting.repository;
 
 import com.topjava.restrauntvoting.error.DataConflictException;
 import com.topjava.restrauntvoting.model.Vote;
+import com.topjava.restrauntvoting.to.VoteTo;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -9,8 +10,8 @@ import java.util.Optional;
 
 public interface VoteRepository extends BaseRepository<Vote> {
 
-    @Query("SELECT v FROM Vote v WHERE v.id=:voteId ORDER BY v.dateTime DESC")
-    List<Vote> getAll(int voteId);
+    @Query("SELECT v FROM Vote v WHERE v.user.id=:userId ORDER BY v.dateTime DESC")
+    List<VoteTo> getAll(int userId);
 
     @Query("SELECT v FROM Vote v WHERE v.id=:id AND v.user.id=:userId")
     Optional<Vote> get(int userId, int id);
@@ -23,6 +24,6 @@ public interface VoteRepository extends BaseRepository<Vote> {
 
     default Vote getBelonged(int userId, int id) {
         return get(userId, id).orElseThrow(
-                () -> new DataConflictException("Meal id=" + id + "   is not exist or doesn't belong to User id=" + userId));
+                () -> new DataConflictException("Entity id=" + id + "   is not exist or doesn't belong to User id=" + userId));
     }
 }
