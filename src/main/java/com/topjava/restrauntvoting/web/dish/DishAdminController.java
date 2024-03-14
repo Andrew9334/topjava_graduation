@@ -23,16 +23,14 @@ import static com.topjava.restrauntvoting.validation.ValidationUtil.checkNew;
 @RequestMapping(value = DishAdminController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @AllArgsConstructor
-public class DishAdminController {
+public class DishAdminController extends AbstractDishController {
 
     static final String REST_URL = "/api/admin/dishes";
 
-    private DishRepository repository;
-    private DishService service;
-
+    @Override
+    @GetMapping("/{resturantId}/{id}")
     public ResponseEntity<Dish> get(@PathVariable("id") int id, @PathVariable("restaurantId") int restaurantId) {
-        log.info("get dish {} from restaurant {}", id, restaurantId);
-        return ResponseEntity.of(repository.get(restaurantId, id));
+        return super.get(id, restaurantId);
     }
 
     @DeleteMapping("/{id}")
@@ -43,10 +41,10 @@ public class DishAdminController {
         repository.delete(dish);
     }
 
+    @Override
     @GetMapping
-    public List<DishesTo> getAll(@PathVariable("restaurantId") int restaurantId) {
-        log.info("getAll for restaurant {}", restaurantId);
-        return repository.getAll(restaurantId);
+    public List<DishesTo> getAll(@PathVariable int id) {
+        return super.getAll(id);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -58,6 +56,7 @@ public class DishAdminController {
         service.save(restaurantId, dish);
     }
 
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Dish> create(@PathVariable("restaurantId") int restaurantId, @Valid @RequestBody Dish dish) {
         log.info("create {} for restaurant {}", dish, restaurantId);
         checkNew(dish);
