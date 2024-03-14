@@ -1,6 +1,7 @@
 package com.topjava.restrauntvoting.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.topjava.restrauntvoting.HasId;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,7 +19,7 @@ import java.time.LocalTime;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(callSuper = true)
-public class Vote extends BaseEntity {
+public class Vote extends BaseEntity implements HasId {
 
     @Column(name = "date_time", nullable = false)
     private LocalDateTime dateTime;
@@ -56,5 +57,15 @@ public class Vote extends BaseEntity {
     @Schema(hidden = true)
     public LocalTime getTime() {
         return dateTime.toLocalTime();
+    }
+
+    @Override
+    public boolean isNew() {
+        return HasId.super.isNew();
+    }
+
+    @Override
+    public int id() {
+        return HasId.super.id();
     }
 }
