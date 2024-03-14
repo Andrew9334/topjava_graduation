@@ -24,22 +24,25 @@ import java.util.List;
 @RequestMapping(value = RestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @AllArgsConstructor
-public class RestaurantController {
+public class RestaurantController extends AbstractRestaurantController {
 
     static final String REST_URL = "/api/profile/restaurant";
 
-    private final RestaurantRepository repository;
-
+    @Override
     @GetMapping("/{id}")
     public ResponseEntity<Restaurant> get(@PathVariable int id) {
-        log.info("get restaurant");
-        return ResponseEntity.of(repository.get(id));
+        return super.get(id);
     }
 
+    @Override
     @GetMapping
-    public List<Restaurant> getAll(@PathVariable int restaurantId) {
-        log.info("getAll restaurant {}", restaurantId);
-        return repository.getAll(restaurantId);
+    public List<Restaurant> getAll(@PathVariable int id) {
+        return super.getAll(id);
     }
 
+    @Override
+    @GetMapping("/{id}/with-dish")
+    public ResponseEntity<Restaurant> getWithDish(@PathVariable int id) {
+        return super.getWithDish(id);
+    }
 }

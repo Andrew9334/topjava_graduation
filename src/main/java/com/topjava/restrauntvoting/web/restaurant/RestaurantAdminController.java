@@ -19,34 +19,32 @@ import java.util.List;
 
 import static com.topjava.restrauntvoting.validation.ValidationUtil.assureIdConsistent;
 import static com.topjava.restrauntvoting.validation.ValidationUtil.checkNew;
+
 @RestController
 @RequestMapping(value = RestaurantAdminController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @AllArgsConstructor
-public class RestaurantAdminController {
+public class RestaurantAdminController extends AbstractRestaurantController {
 
     static final String REST_URL = "/api/admin/restaurant";
 
-    private final RestaurantRepository repository;
-    private final RestaurantService service;
-
+    @Override
     @GetMapping("/{id}")
     public ResponseEntity<Restaurant> get(@PathVariable int id) {
-        log.info("get restaurant");
-        return ResponseEntity.of(repository.get(id));
+        return super.get(id);
     }
 
-    @GetMapping("/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
         log.info("delete {}", id);
-        repository.delete(id);
+        repository.deleteExisted(id);
     }
 
+    @Override
     @GetMapping
-    public List<Restaurant> getAll(@PathVariable int restaurantId) {
-        log.info("getAll restaurant {}", restaurantId);
-        return repository.getAll(restaurantId);
+    public List<Restaurant> getAll(@PathVariable int id) {
+        return super.getAll(id);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -57,6 +55,7 @@ public class RestaurantAdminController {
         service.save(restaurant);
     }
 
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> create(@Valid @RequestBody Restaurant restaurant) {
         log.info("create restaurant");
         checkNew(restaurant);
@@ -65,5 +64,11 @@ public class RestaurantAdminController {
                 .path(REST_URL)
                 .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
+    }
+
+    @Override
+    @GetMapping("/{id}/with-dish")
+    public ResponseEntity<Restaurant> getWithDish(@PathVariable int id) {
+        return super.getWithDish(id);
     }
 }
