@@ -37,7 +37,7 @@ public class DishTestData {
     public static MatcherFactory.Matcher<DishesTo> DISH_TO_MATCHER = MatcherFactory.usingEqualsComparator(DishesTo.class);
 
     public static Dish getNew() {
-        return new Dish(null, "Created dish", LocalDate.now(), 100, REST1);
+        return new Dish(null, "Created dish", LocalDate.now(), 100, null);
     }
 
     public static Dish getUpdated() {

@@ -59,7 +59,7 @@ public class DishAdminController extends AbstractDishController {
         checkNew(dish);
         Dish created = service.save(restaurantId, dish);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + "/{id}")
+                .path(REST_URL)
                 .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
