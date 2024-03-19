@@ -3,7 +3,10 @@ package com.topjava.restaurantvoting.web.vote;
 import com.topjava.restaurantvoting.model.Vote;
 import com.topjava.restaurantvoting.to.VoteTo;
 import com.topjava.restaurantvoting.web.AuthUser;
+import com.topjava.restaurantvoting.web.restaurant.RestaurantAdminController;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +20,13 @@ import java.util.List;
 import static com.topjava.restaurantvoting.validation.ValidationUtil.assureIdConsistent;
 import static com.topjava.restaurantvoting.validation.ValidationUtil.checkNew;
 
+@RestController
+@RequestMapping(value = VoteAdminController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@Slf4j
+@AllArgsConstructor
 public class VoteAdminController extends AbstractVoteController {
 
-    static final String REST_URL = "/api/admin/{user_id}/vote";
+    static final String REST_URL = "/api/admin/{userId}/{restaurantId}/vote";
 
     @Override
     @GetMapping("/{id}")
@@ -36,7 +43,7 @@ public class VoteAdminController extends AbstractVoteController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
-        log.info("delete {} for user {} ", id);
+        log.info("delete {}", id);
         Vote vote = repository.getBelonged(id);
         repository.delete(vote);
     }
@@ -63,15 +70,15 @@ public class VoteAdminController extends AbstractVoteController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Vote> getWithUser(@AuthenticationPrincipal int userId, @PathVariable int id) {
-        log.info("get {} with user {}", id, userId);
-        return ResponseEntity.of(repository.getWithUser(id, userId));
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Vote> getWithUser(@AuthenticationPrincipal int userId, @PathVariable int id) {
+//        log.info("get {} with user {}", id, userId);
+//        return ResponseEntity.of(repository.getWithUser(id, userId));
+//    }
 
-    @GetMapping("/{restaurantId}/{id}")
-    public ResponseEntity<Vote> getWithUserAndRestaurant(@AuthenticationPrincipal int userId, @PathVariable int id, @PathVariable int restaurantId) {
-        log.info("get {} with user {} and with restaurant {}", id, userId, restaurantId);
-        return ResponseEntity.of(repository.getWithUserAndRestaurant(userId, restaurantId, id));
-    }
+//    @GetMapping("/{restaurantId}/{id}")
+//    public ResponseEntity<Vote> getWithUserAndRestaurant(@AuthenticationPrincipal int userId, @PathVariable int id, @PathVariable int restaurantId) {
+//        log.info("get {} with user {} and with restaurant {}", id, userId, restaurantId);
+//        return ResponseEntity.of(repository.getWithUserAndRestaurant(userId, restaurantId, id));
+//    }
 }

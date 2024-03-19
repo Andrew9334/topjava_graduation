@@ -15,7 +15,7 @@ public interface VoteRepository extends BaseRepository<Vote> {
     @Query("SELECT v FROM Vote v WHERE v.user.id=:userId ORDER BY v.dateTime DESC")
     List<VoteTo> getAll(int userId);
 
-    @Query("SELECT v FROM Vote v WHERE v.id=:id AND v.user.id=:userId")
+    @Query("SELECT v FROM Vote v WHERE v.id=:id")
     Optional<Vote> get(int id);
 
     @Query("SELECT v FROM Vote v JOIN FETCH v.user WHERE v.id=:id AND v.user.id=:userId")

@@ -43,12 +43,6 @@ public class Vote extends BaseEntity implements HasId {
         this.restaurant = restaurant;
     }
 
-    public Vote(LocalDateTime dateTime, User user, Restaurant restaurant) {
-        this.dateTime = dateTime;
-        this.user = user;
-        this.restaurant = restaurant;
-    }
-
     @Schema(hidden = true)
     public LocalDate getDate() {
         return dateTime.toLocalDate();
@@ -57,15 +51,5 @@ public class Vote extends BaseEntity implements HasId {
     @Schema(hidden = true)
     public LocalTime getTime() {
         return dateTime.toLocalTime();
-    }
-
-    @Override
-    public boolean isNew() {
-        return HasId.super.isNew();
-    }
-
-    @Override
-    public int id() {
-        return HasId.super.id();
     }
 }

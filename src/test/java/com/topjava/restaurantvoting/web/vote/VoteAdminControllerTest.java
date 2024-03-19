@@ -1,13 +1,20 @@
 package com.topjava.restaurantvoting.web.vote;
 
 import com.topjava.restaurantvoting.AbstractControllerTest;
+import com.topjava.restaurantvoting.model.Dish;
+import com.topjava.restaurantvoting.model.Vote;
 import com.topjava.restaurantvoting.repository.VoteRepository;
+import com.topjava.restaurantvoting.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.io.UnsupportedEncodingException;
+
+import static com.topjava.restaurantvoting.web.restaurant.RestaurantTestData.REST1;
 import static com.topjava.restaurantvoting.web.restaurant.RestaurantTestData.REST1_ID;
 import static com.topjava.restaurantvoting.web.user.UserTestData.*;
 import static com.topjava.restaurantvoting.web.vote.VoteAdminController.REST_URL;
@@ -30,7 +37,6 @@ class VoteAdminControllerTest extends AbstractControllerTest {
         perform(MockMvcRequestBuilders.get((REST_URL_SLASH + VOTE1_ID), USER_ID))
                 .andExpect(status().isOk())
                 .andDo(print())
-                // https://jira.spring.io/browse/SPR-14472
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(VOTE_MATCHER.contentJson(VOTE1));
     }
@@ -42,18 +48,36 @@ class VoteAdminControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void delete() throws Exception {
-        perform(MockMvcRequestBuilders.delete(REST_URL_SLASH + VOTE1_ID))
+        perform(MockMvcRequestBuilders.delete((REST_URL_SLASH + VOTE1_ID), ADMIN_ID))
                 .andDo(print())
                 .andExpect(status().isNoContent());
         assertFalse(repository.findById(VOTE1_ID).isPresent());
     }
 
     @Test
-    void update() {
+    @WithUserDetails(value = ADMIN_MAIL)
+    void update() throws Exception {
+        Vote updated = VoteTestData.getUpdated();
+        perform(MockMvcRequestBuilders.put((REST_URL_SLASH + VOTE1_ID), USER_ID, REST1_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(updated)))
+                .andExpect(status().isNoContent());
+
+        VOTE_MATCHER.assertMatch(repository.getExisted(VOTE1_ID), updated);
     }
 
     @Test
-    void create() {
+    void create() throws Exception {
+        Vote newVote = VoteTestData.getNew();
+        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL, USER_ID, REST1_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(newVote)));
+
+        Vote created = VOTE_MATCHER.readFromJson(action);
+        int newId = created.id();
+        newVote.setId(newId);
+        VOTE_MATCHER.assertMatch(created, newVote);
+        VOTE_MATCHER.assertMatch(repository.getExisted(newId), newVote);
     }
 
     @Test
