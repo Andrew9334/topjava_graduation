@@ -60,7 +60,7 @@ public class AdminUserController extends AbstractUserController {
         repository.prepareAndSave(user);
     }
 
-    @GetMapping("/{by-email}")
+    @GetMapping("email/{email}")
     public User getByEmail(@RequestParam String email) {
         log.info("getByEmail {}", email);
         return repository.getExistedByEmail(email);

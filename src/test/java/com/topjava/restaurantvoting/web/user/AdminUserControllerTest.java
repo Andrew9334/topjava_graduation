@@ -49,11 +49,13 @@ class AdminUserControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void getByEmail() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + "by-email?email=" + admin.getEmail()))
+        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + "/email/by-email?email=" + admin.getEmail()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(USER_MATCHER.contentJson(admin));
     }
+
+
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
