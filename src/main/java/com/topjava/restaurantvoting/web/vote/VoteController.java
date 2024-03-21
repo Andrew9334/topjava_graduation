@@ -1,7 +1,6 @@
 package com.topjava.restaurantvoting.web.vote;
 
 import com.topjava.restaurantvoting.model.Vote;
-import com.topjava.restaurantvoting.to.VoteTo;
 import com.topjava.restaurantvoting.web.AuthUser;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -25,19 +24,37 @@ import static com.topjava.restaurantvoting.validation.ValidationUtil.checkNew;
 @AllArgsConstructor
 public class VoteController extends AbstractVoteController {
 
-    static final String REST_URL = "/api/profile/vote";
+    static final String REST_URL = "/api/profile/{userId}/restaurants/{restaurantId}/vote";
 
-    @Override
-    @GetMapping("/{id}")
-    public ResponseEntity<Vote> get(@AuthenticationPrincipal int userId, @PathVariable int id) {
-        return super.get(userId, id);
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Vote> create(@PathVariable int userId, @PathVariable int restaurantId, @Valid @RequestBody Vote vote) {
+        log.info("create {} for user {}", vote, restaurantId);
+        checkNew(vote);
+        Vote created = service.save(userId, restaurantId, vote);
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(REST_URL + "/{id}")
+                .buildAndExpand(created.getId()).toUri();
+        return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
     @Override
+    @GetMapping("/{id}")
+    public ResponseEntity<Vote> get(@PathVariable int restaurantId, @PathVariable int id) {
+        return super.get(restaurantId, id);
+    }
+
+    @Override
+    @GetMapping
+    public List<Vote> getAll() {
+        return super.getAll();
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public List<VoteTo> getALl(@PathVariable int id) {
-        return super.getALl(id);
+    public void delete(@PathVariable int id, @PathVariable int restaurantId) {
+        log.info("delete {}", id);
+        Vote vote = repository.getBelonged(id, restaurantId);
+        repository.delete(vote);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -46,19 +63,18 @@ public class VoteController extends AbstractVoteController {
         int userId = authUser.id();
         log.info("update {} for user {}", vote, userId);
         assureIdConsistent(vote, id);
-        repository.getBelonged(id);
+        repository.getBelonged(id, restaurantId);
         service.save(userId, restaurantId, vote);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Vote> create(@AuthenticationPrincipal AuthUser authUser, @PathVariable int restaurantId, @Valid @RequestBody Vote vote) {
-        int userId = authUser.id();
-        log.info("create {} for user {}", vote, userId);
-        checkNew(vote);
-        Vote created = service.save(userId, restaurantId, vote);
-        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + "/{id}")
-                .buildAndExpand(created.getId()).toUri();
-        return ResponseEntity.created(uriOfNewResource).body(created);
-    }
+//    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Vote> create(@PathVariable int userId, @PathVariable int restaurantId, @Valid @RequestBody Vote vote) {
+//        log.info("create {} for user {}", vote, restaurantId);
+//        checkNew(vote);
+//        Vote created = service.save(userId, restaurantId, vote);
+//        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+//                .path(REST_URL)
+//                .buildAndExpand(created.getId()).toUri();
+//        return ResponseEntity.created(uriOfNewResource).body(created);
+//    }
 }
