@@ -2,7 +2,9 @@ package com.topjava.restaurantvoting.web.dish;
 
 import com.topjava.restaurantvoting.MatcherFactory;
 import com.topjava.restaurantvoting.model.Dish;
+import com.topjava.restaurantvoting.model.User;
 import com.topjava.restaurantvoting.to.DishesTo;
+import com.topjava.restaurantvoting.util.JsonUtil;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -44,4 +46,7 @@ public class DishTestData {
         return new Dish(DISH_RESTAURANT1_ID, "Updated dish", DISH1_RESTAURANT1.getDate(), 20, REST3);
     }
 
+    public static String jsonInvalid(Dish dish) {
+        return JsonUtil.writeAdditionProps(dish, "newName", "dish");
+    }
 }
