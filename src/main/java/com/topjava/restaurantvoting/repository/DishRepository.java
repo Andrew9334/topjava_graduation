@@ -20,11 +20,6 @@ public interface DishRepository extends BaseRepository<Dish> {
     @Query("SELECT d FROM Dish d WHERE d.id=:id AND d.restaurant.id=:restaurantId")
     Optional<Dish> get(int restaurantId, int id);
 
-    @Query("SELECT d FROM Dish d JOIN FETCH d.restaurant WHERE d.id=:id and d.restaurant.id=:restaurantId")
-    Optional<Dish> getWithRestaurant(int id, int restaurantId);
-
-
-
     default Dish getBelonged(int restaurantId, int id) {
         return get(restaurantId, id).orElseThrow(
                 () -> new DataConflictException("Dish id=" + id + "   is not exist or doesn't belong to Restaurant id=" + restaurantId));
