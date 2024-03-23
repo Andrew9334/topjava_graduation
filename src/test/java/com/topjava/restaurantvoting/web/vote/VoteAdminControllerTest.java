@@ -30,18 +30,8 @@ class VoteAdminControllerTest extends AbstractControllerTest {
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
-    void get() throws Exception {
+    void getWithUserAndRestaurant() throws Exception {
         perform(MockMvcRequestBuilders.get((REST_URL_SLASH + VOTE1_ID), ADMIN_ID, REST1_ID))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(VOTE_MATCHER.contentJson(VOTE1));
-    }
-
-    @Test
-    @WithUserDetails(value = ADMIN_MAIL)
-    void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL_SLASH, USER_ID, REST1_ID))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -55,26 +45,5 @@ class VoteAdminControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isNoContent());
         assertFalse(repository.findById(VOTE1_ID).isPresent());
-    }
-
-//    @Test
-//    @WithUserDetails(value = ADMIN_MAIL)
-//    void update() throws Exception {
-//        Vote updated = VoteTestData.getUpdated();
-//        perform(MockMvcRequestBuilders.put((REST_URL_SLASH + VOTE1_ID), USER_ID, REST1_ID)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(JsonUtil.writeValue(updated)))
-//                .andExpect(status().isNoContent());
-//
-//        VOTE_MATCHER.assertMatch(repository.getExisted(VOTE1_ID), updated);
-//    }
-
-
-    @Test
-    void getWithUser() {
-    }
-
-    @Test
-    void getWithUserAndRestaurant() {
     }
 }

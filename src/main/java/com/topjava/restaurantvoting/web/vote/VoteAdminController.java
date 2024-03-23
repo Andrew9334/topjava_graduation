@@ -25,7 +25,7 @@ import static com.topjava.restaurantvoting.validation.ValidationUtil.checkNew;
 @AllArgsConstructor
 public class VoteAdminController extends AbstractVoteController {
 
-    static final String REST_URL = "/api/admin/{userId}/{restaurantId}/vote";
+    static final String REST_URL = "/api/admin/{userId}/{restaurantId}/vote/";
 
     @Override
     @GetMapping("/{id}")

@@ -24,18 +24,7 @@ import static com.topjava.restaurantvoting.validation.ValidationUtil.checkNew;
 @AllArgsConstructor
 public class VoteController extends AbstractVoteController {
 
-    static final String REST_URL = "/api/profile/{userId}/restaurants/{restaurantId}/vote";
-
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Vote> create(@PathVariable int userId, @PathVariable int restaurantId, @Valid @RequestBody Vote vote) {
-        log.info("create {} for user {}", vote, restaurantId);
-        checkNew(vote);
-        Vote created = service.save(userId, restaurantId, vote);
-        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + "/{id}")
-                .buildAndExpand(created.getId()).toUri();
-        return ResponseEntity.created(uriOfNewResource).body(created);
-    }
+    static final String REST_URL = "/api/profile/{userId}/restaurants/{restaurantId}/vote/";
 
     @Override
     @GetMapping("/{id}")
@@ -67,14 +56,14 @@ public class VoteController extends AbstractVoteController {
         service.save(userId, restaurantId, vote);
     }
 
-//    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Vote> create(@PathVariable int userId, @PathVariable int restaurantId, @Valid @RequestBody Vote vote) {
-//        log.info("create {} for user {}", vote, restaurantId);
-//        checkNew(vote);
-//        Vote created = service.save(userId, restaurantId, vote);
-//        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-//                .path(REST_URL)
-//                .buildAndExpand(created.getId()).toUri();
-//        return ResponseEntity.created(uriOfNewResource).body(created);
-//    }
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Vote> create(@PathVariable int userId, @PathVariable int restaurantId, @Valid @RequestBody Vote vote) {
+        log.info("create {} for user {}", vote, restaurantId);
+        checkNew(vote);
+        Vote created = service.save(userId, restaurantId, vote);
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(REST_URL + "/{id}")
+                .buildAndExpand(userId, restaurantId, created.getId()).toUri();
+        return ResponseEntity.created(uriOfNewResource).body(created);
+    }
 }

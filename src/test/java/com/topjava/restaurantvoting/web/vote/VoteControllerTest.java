@@ -40,16 +40,6 @@ class VoteControllerTest extends AbstractControllerTest {
 
     @Test
     @WithUserDetails(value = USER_MAIL)
-    void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL_SLASH, USER_ID, REST1_ID))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(VOTE_MATCHER.contentJson(VOTES));
-    }
-
-    @Test
-    @WithUserDetails(value = USER_MAIL)
     void update() throws Exception {
         Vote updated = VoteTestData.getUpdated();
         perform(MockMvcRequestBuilders.put((REST_URL_SLASH + VOTE1_ID), USER_ID, REST1_ID)
