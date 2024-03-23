@@ -1,6 +1,8 @@
 package com.topjava.restaurantvoting.web.dish;
 
 import com.topjava.restaurantvoting.model.Dish;
+import com.topjava.restaurantvoting.model.Role;
+import com.topjava.restaurantvoting.model.User;
 import com.topjava.restaurantvoting.to.DishesTo;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
