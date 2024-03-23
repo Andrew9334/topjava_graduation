@@ -45,7 +45,7 @@ spring:
 logging:
   level:
     root: WARN
-    com.com.topjava.restauntvoting: DEBUG
+    com.topjava.restauntvoting: DEBUG
     org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver: DEBUG
 
 server.servlet:
