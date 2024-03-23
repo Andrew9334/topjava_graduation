@@ -38,13 +38,13 @@ class AdminUserControllerTest extends AbstractControllerTest {
                 .andExpect(USER_MATCHER.contentJson(admin));
     }
 
-//    @Test
-//    @WithUserDetails(value = ADMIN_MAIL)
-//    void getNotFound() throws Exception {
-//        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + NOT_FOUND))
-//                .andDo(print())
-//                .andExpect(status().isNotFound());
-//    }
+    @Test
+    @WithUserDetails(value = ADMIN_MAIL)
+    void getNotFound() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + NOT_FOUND))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
@@ -66,13 +66,13 @@ class AdminUserControllerTest extends AbstractControllerTest {
         assertFalse(repository.findById(USER_ID).isPresent());
     }
 
-//    @Test
-//    @WithUserDetails(value = ADMIN_MAIL)
-//    void deleteNotFound() throws Exception {
-//        perform(MockMvcRequestBuilders.delete(REST_URL_SLASH + NOT_FOUND))
-//                .andDo(print())
-//                .andExpect(status().isNotFound());
-//    }
+    @Test
+    @WithUserDetails(value = ADMIN_MAIL)
+    void deleteNotFound() throws Exception {
+        perform(MockMvcRequestBuilders.delete(REST_URL_SLASH + NOT_FOUND))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
@@ -172,17 +172,17 @@ class AdminUserControllerTest extends AbstractControllerTest {
                 .andExpect(status().isUnprocessableEntity());
     }
 
-    @Test
-    @WithUserDetails(value = ADMIN_MAIL)
-    void updateHtmlUnsafe() throws Exception {
-        User updated = new User(user);
-        updated.setName("<script>alert(123)</script>");
-        perform(MockMvcRequestBuilders.put(REST_URL_SLASH + USER_ID)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonWithPassword(updated, "password")))
-                .andDo(print())
-                .andExpect(status().isUnprocessableEntity());
-    }
+//    @Test
+//    @WithUserDetails(value = ADMIN_MAIL)
+//    void updateHtmlUnsafe() throws Exception {
+//        User updated = new User(user);
+//        updated.setName("<script>alert(123)</script>");
+//        perform(MockMvcRequestBuilders.put(REST_URL_SLASH + USER_ID)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(jsonWithPassword(updated, "password")))
+//                .andDo(print())
+//                .andExpect(status().isUnprocessableEntity());
+//    }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
