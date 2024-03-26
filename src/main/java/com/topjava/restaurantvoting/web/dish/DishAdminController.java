@@ -1,9 +1,6 @@
 package com.topjava.restaurantvoting.web.dish;
 
 import com.topjava.restaurantvoting.model.Dish;
-import com.topjava.restaurantvoting.model.Role;
-import com.topjava.restaurantvoting.model.User;
-import com.topjava.restaurantvoting.to.DishesTo;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +21,7 @@ import static com.topjava.restaurantvoting.validation.ValidationUtil.checkNew;
 @Slf4j
 @AllArgsConstructor
 public class DishAdminController extends AbstractDishController {
-    static final String REST_URL = "/api/admin/restaurants/{restaurantId}/dishes";
+    static final String REST_URL = "/api/admin/restaurants/{restaurantId}/dishes/";
 
     @Override
     @GetMapping("/{id}")
@@ -62,7 +59,7 @@ public class DishAdminController extends AbstractDishController {
         Dish created = service.save(restaurantId, dish);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL)
-                .buildAndExpand(created.getId()).toUri();
+                .buildAndExpand(restaurantId, created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 }

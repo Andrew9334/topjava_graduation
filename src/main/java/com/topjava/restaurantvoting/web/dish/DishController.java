@@ -1,7 +1,6 @@
 package com.topjava.restaurantvoting.web.dish;
 
 import com.topjava.restaurantvoting.model.Dish;
-import com.topjava.restaurantvoting.to.DishesTo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
