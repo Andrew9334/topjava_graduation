@@ -31,10 +31,4 @@ public class RestaurantController extends AbstractRestaurantController {
     public List<Restaurant> getAll() {
         return super.getAll();
     }
-
-    @Override
-    @GetMapping("/{id}/with-dish")
-    public ResponseEntity<Restaurant> getWithDish(@PathVariable int id) {
-        return super.getWithDish(id);
-    }
 }

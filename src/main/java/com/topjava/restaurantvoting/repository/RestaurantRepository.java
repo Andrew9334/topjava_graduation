@@ -13,9 +13,6 @@ public interface RestaurantRepository extends BaseRepository<Restaurant> {
     @Query("SELECT r FROM Restaurant r WHERE r.id=:id")
     Optional<Restaurant> get(int id);
 
-//    @Query("SELECT r FROM Restaurant r WHERE r.id=:id")
-//    List<Restaurant> getAll(int id);
-
     @Query("SELECT r FROM Restaurant r LEFT JOIN FETCH r.dishes WHERE r.id=?1")
     Optional<Restaurant> getWithDish(int id);
 }

@@ -3,6 +3,7 @@ package com.topjava.restaurantvoting.web.restaurant;
 import com.topjava.restaurantvoting.MatcherFactory;
 import com.topjava.restaurantvoting.model.Dish;
 import com.topjava.restaurantvoting.model.Restaurant;
+import com.topjava.restaurantvoting.util.JsonUtil;
 
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
@@ -32,5 +33,9 @@ public class RestaurantTestData {
 
     public static Restaurant getUpdated() {
         return new Restaurant(REST1_ID, "Onr");
+    }
+
+    public static String jsonInvalid(Restaurant restaurant) {
+        return JsonUtil.writeAdditionProps(restaurant, "newName", "restaurant");
     }
 }

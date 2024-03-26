@@ -61,10 +61,4 @@ public class RestaurantAdminController extends AbstractRestaurantController {
                 .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
-
-    @Override
-    @GetMapping("/{id}/with-dish")
-    public ResponseEntity<Restaurant> getWithDish(@PathVariable int id) {
-        return super.getWithDish(id);
-    }
 }
