@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 public class BaseTo implements HasId {
+
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     protected Integer id;
 
