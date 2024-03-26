@@ -30,9 +30,4 @@ public abstract class AbstractRestaurantController {
         log.info("getAll restaurant");
         return repository.findAll();
     }
-
-    public ResponseEntity<Restaurant> getWithDish(int id) {
-        log.info("get with dish {}", id);
-        return ResponseEntity.of(repository.getWithDish(id));
-    }
 }

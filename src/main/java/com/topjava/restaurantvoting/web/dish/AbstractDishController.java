@@ -3,13 +3,10 @@ package com.topjava.restaurantvoting.web.dish;
 import com.topjava.restaurantvoting.model.Dish;
 import com.topjava.restaurantvoting.repository.DishRepository;
 import com.topjava.restaurantvoting.service.DishService;
-import com.topjava.restaurantvoting.to.DishesTo;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
