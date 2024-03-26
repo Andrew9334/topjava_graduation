@@ -4,7 +4,6 @@ import com.topjava.restaurantvoting.AbstractControllerTest;
 import com.topjava.restaurantvoting.model.Restaurant;
 import com.topjava.restaurantvoting.repository.RestaurantRepository;
 import com.topjava.restaurantvoting.util.JsonUtil;
-import com.topjava.restaurantvoting.web.user.UserTestData;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,7 +13,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.topjava.restaurantvoting.web.restaurant.RestaurantAdminController.REST_URL;
 import static com.topjava.restaurantvoting.web.restaurant.RestaurantTestData.*;
-import static com.topjava.restaurantvoting.web.user.UserTestData.ADMIN_ID;
 import static com.topjava.restaurantvoting.web.user.UserTestData.ADMIN_MAIL;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -59,7 +57,7 @@ class RestaurantAdminControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(ADMIN_MAIL)
     void update() throws Exception {
-        Restaurant updated = getUpdated();
+        Restaurant updated = RestaurantTestData.getUpdated();
         perform(MockMvcRequestBuilders.put(REST_URL_SLASH + REST1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
@@ -71,7 +69,7 @@ class RestaurantAdminControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(ADMIN_MAIL)
     void create() throws Exception {
-        Restaurant newRest = getNew();
+        Restaurant newRest = RestaurantTestData.getNew();
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newRest)));
@@ -81,5 +79,38 @@ class RestaurantAdminControllerTest extends AbstractControllerTest {
         newRest.setId(newId);
         REST_MATCHER.assertMatch(created, newRest);
         REST_MATCHER.assertMatch(restaurantRepository.getExisted(newId), newRest);
+    }
+
+    @Test
+    @WithUserDetails(value = ADMIN_MAIL)
+    void createInvalid() throws Exception {
+        Restaurant invalid = new Restaurant(null, null);
+        perform(MockMvcRequestBuilders.post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(RestaurantTestData.jsonInvalid(invalid)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    @WithUserDetails(value = ADMIN_MAIL)
+    void updateInvalid() throws Exception {
+        Restaurant invalid = new Restaurant(REST1_ID, null);
+        perform(MockMvcRequestBuilders.put((REST_URL_SLASH + REST1_ID))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(invalid)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    @WithUserDetails(value = ADMIN_MAIL)
+    void createDuplicate() throws Exception {
+        Restaurant invalid = new Restaurant(null, REST1.getName());
+        perform(MockMvcRequestBuilders.post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(invalid)))
+                .andDo(print())
+                .andExpect(status().isConflict());
     }
 }

@@ -26,11 +26,11 @@ class DishControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = USER_MAIL)
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get((REST_URL_SLASH + DISH_RESTAURANT1_ID), REST1_ID))
+        perform(MockMvcRequestBuilders.get((REST_URL_SLASH + DISH_REST1_ID), REST1_ID))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(DISH_MATCHER.contentJson(DISH1_RESTAURANT1));
+                .andExpect(DISH_MATCHER.contentJson(DISH1_REST1));
     }
 
     @Test
@@ -40,6 +40,6 @@ class DishControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(DISH_MATCHER.contentJson(DISHES_RESTAURANT1));
+                .andExpect(DISH_MATCHER.contentJson(DISHES_REST1));
     }
 }

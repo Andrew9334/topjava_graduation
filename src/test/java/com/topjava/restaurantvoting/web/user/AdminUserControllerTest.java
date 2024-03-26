@@ -55,8 +55,6 @@ class AdminUserControllerTest extends AbstractControllerTest {
                 .andExpect(USER_MATCHER.contentJson(admin));
     }
 
-
-
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void delete() throws Exception {
@@ -171,18 +169,6 @@ class AdminUserControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
     }
-
-//    @Test
-//    @WithUserDetails(value = ADMIN_MAIL)
-//    void updateHtmlUnsafe() throws Exception {
-//        User updated = new User(user);
-//        updated.setName("<script>alert(123)</script>");
-//        perform(MockMvcRequestBuilders.put(REST_URL_SLASH + USER_ID)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(jsonWithPassword(updated, "password")))
-//                .andDo(print())
-//                .andExpect(status().isUnprocessableEntity());
-//    }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)

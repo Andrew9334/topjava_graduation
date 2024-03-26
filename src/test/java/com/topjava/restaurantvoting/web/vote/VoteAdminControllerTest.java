@@ -31,7 +31,7 @@ class VoteAdminControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void getWithUserAndRestaurant() throws Exception {
-        perform(MockMvcRequestBuilders.get((REST_URL_SLASH + VOTE1_ID), ADMIN_ID, REST1_ID))
+        perform(MockMvcRequestBuilders.get((REST_URL_SLASH + VOTE1_ID), USER_ID, REST1_ID))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -41,7 +41,7 @@ class VoteAdminControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void delete() throws Exception {
-        perform(MockMvcRequestBuilders.delete((REST_URL_SLASH + VOTE1_ID), ADMIN_ID, REST1_ID))
+        perform(MockMvcRequestBuilders.delete((REST_URL_SLASH + VOTE1_ID), USER_ID, REST1_ID))
                 .andDo(print())
                 .andExpect(status().isNoContent());
         assertFalse(repository.findById(VOTE1_ID).isPresent());
