@@ -25,25 +25,19 @@ import static com.topjava.restaurantvoting.validation.ValidationUtil.checkNew;
 @AllArgsConstructor
 public class VoteAdminController extends AbstractVoteController {
 
-    static final String REST_URL = "/api/admin/{userId}/{restaurantId}/vote/";
+    static final String REST_URL = "/api/admin/user/{userId}/restaurant/{restaurantId}/vote/";
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<Vote> get(@PathVariable int restaurantId, @PathVariable int id) {
-        return super.get(restaurantId, id);
+    public ResponseEntity<Vote> get(@PathVariable int restaurantId, @PathVariable int userId, @PathVariable int id) {
+        return super.get(restaurantId, userId, id);
     }
-
-//    @Override
-//    @GetMapping
-//    public List<Vote> getAll() {
-//        return super.getAll();
-//    }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id, @PathVariable int restaurantId) {
+    public void delete(@PathVariable int id, @PathVariable int userId, @PathVariable int restaurantId) {
         log.info("delete {}", id);
-        Vote vote = repository.getBelonged(id, restaurantId);
+        Vote vote = repository.getBelonged(id, userId, restaurantId);
         repository.delete(vote);
     }
 
@@ -53,7 +47,7 @@ public class VoteAdminController extends AbstractVoteController {
         int userId = authUser.id();
         log.info("update {} for user {}", vote, userId);
         assureIdConsistent(vote, id);
-        repository.getBelonged(id, restaurantId);
+        repository.getBelonged(id, userId , restaurantId);
         service.save(userId, restaurantId, vote);
     }
 }

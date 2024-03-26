@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 import static com.topjava.restaurantvoting.validation.ValidationUtil.assureIdConsistent;
 import static com.topjava.restaurantvoting.validation.ValidationUtil.checkNew;
@@ -28,21 +27,15 @@ public class VoteController extends AbstractVoteController {
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<Vote> get(@PathVariable int restaurantId, @PathVariable int id) {
-        return super.get(restaurantId, id);
-    }
-
-    @Override
-    @GetMapping
-    public List<Vote> getAll() {
-        return super.getAll();
+    public ResponseEntity<Vote> get(@PathVariable int restaurantId, @PathVariable int userId, @PathVariable int id) {
+        return super.get(restaurantId, userId, id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id, @PathVariable int restaurantId) {
+    public void delete(@PathVariable int id, @PathVariable int userId, @PathVariable int restaurantId) {
         log.info("delete {}", id);
-        Vote vote = repository.getBelonged(id, restaurantId);
+        Vote vote = repository.getBelonged(id, userId, restaurantId);
         repository.delete(vote);
     }
 
@@ -52,7 +45,7 @@ public class VoteController extends AbstractVoteController {
         int userId = authUser.id();
         log.info("update {} for user {}", vote, userId);
         assureIdConsistent(vote, id);
-        repository.getBelonged(id, restaurantId);
+        repository.getBelonged(id, userId, restaurantId);
         service.save(userId, restaurantId, vote);
     }
 
