@@ -22,7 +22,7 @@ VALUES ('Beef steak', current_date, 500, 1),
        ('Grilled ribs', current_date, 250, 3);
 
 INSERT INTO VOTE (user_id, restaurant_id, date_time)
-VALUES (1, 1, '2024-03-09 11:00'),
-       (2, 2, '2024-03-09 10:00'),
-       (2, 1,'2024-03-09 15:00'),
-       (1, 3, '2024-03-09 16:00');
+VALUES (1, 1, current_timestamp()),
+       (2, 2, current_timestamp()),
+       (2, 1, current_timestamp()),
+       (1, 3, current_timestamp());
