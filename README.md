@@ -20,14 +20,14 @@ Each restaurant provides a new menu each day.
 
 As a result, provide a link to github repository. It should contain the code, README.md with an API documentation and 
 a couple of curl commands to test it (better - link to Swagger).
-
+________________________________________________________________________________________________________________________
 Link to Swagger: [REST API documentation](http://localhost:8080/swagger-ui/index.html)
 
 Тестовые креденшелы:
 - user@yandex.ru / password
 - admin@gmail.com / admin
 - guest@gmail.com / guest
-
+________________________________________________________________________________________________________________________
 ### Used technologies:
 
 * Maven 
