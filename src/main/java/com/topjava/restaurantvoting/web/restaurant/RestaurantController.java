@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class RestaurantController extends AbstractRestaurantController {
 
-    static final String REST_URL = "/api/profile/restaurant";
+    static final String REST_URL = "/api/profile/restaurant/";
 
     @Override
     @GetMapping("/{id}")

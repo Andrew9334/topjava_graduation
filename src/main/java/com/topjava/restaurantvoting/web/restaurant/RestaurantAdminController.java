@@ -22,7 +22,7 @@ import static com.topjava.restaurantvoting.validation.ValidationUtil.checkNew;
 @AllArgsConstructor
 public class RestaurantAdminController extends AbstractRestaurantController {
 
-    static final String REST_URL = "/api/admin/restaurant";
+    static final String REST_URL = "/api/admin/restaurant/";
 
     @Override
     @GetMapping("/{id}")
