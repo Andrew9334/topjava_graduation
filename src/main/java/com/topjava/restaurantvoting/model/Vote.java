@@ -1,6 +1,7 @@
 package com.topjava.restaurantvoting.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.topjava.restaurantvoting.HasId;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,7 +19,7 @@ import java.time.LocalTime;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(callSuper = true)
-public class Vote extends BaseEntity {
+public class Vote extends BaseEntity implements HasId {
 
     @Column(name = "date_time", nullable = false)
     private LocalDateTime dateTime;
@@ -37,12 +38,6 @@ public class Vote extends BaseEntity {
 
     public Vote(Integer id, LocalDateTime dateTime, User user, Restaurant restaurant) {
         super(id);
-        this.dateTime = dateTime;
-        this.user = user;
-        this.restaurant = restaurant;
-    }
-
-    public Vote(LocalDateTime dateTime, User user, Restaurant restaurant) {
         this.dateTime = dateTime;
         this.user = user;
         this.restaurant = restaurant;

@@ -77,11 +77,6 @@ public class User extends NamedEntity implements HasIdAndEmail {
     }
 
     @Override
-    public String getEmail() {
-        return email;
-    }
-
-    @Override
     public String toString() {
         return "User:" + id + '[' + email + ']';
     }
