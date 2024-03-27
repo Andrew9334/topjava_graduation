@@ -1,4 +1,4 @@
-# Graduation project Restaurant Voting by TopJava [TopJava](https://github.com/Andrew9334/TopJava)
+# Graduation project Restaurant Voting by [TopJava](https://github.com/Andrew9334/TopJava)
 
 The project was completed in accordance with the technical specifications: REST API was designed and implemented using 
 Spring-Boot/Spring Data JPA without a frontend approach.
