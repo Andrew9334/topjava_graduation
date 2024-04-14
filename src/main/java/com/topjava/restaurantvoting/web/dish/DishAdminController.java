@@ -21,7 +21,7 @@ import static com.topjava.restaurantvoting.validation.ValidationUtil.checkNew;
 @Slf4j
 @AllArgsConstructor
 public class DishAdminController extends AbstractDishController {
-    static final String REST_URL = "/api/admin/restaurants/{restaurantId}/dishes/";
+    static final String REST_URL = "/api/admin/restaurants/{restaurantId}/dishes";
 
     @Override
     @GetMapping("/{id}")
@@ -39,8 +39,8 @@ public class DishAdminController extends AbstractDishController {
 
     @Override
     @GetMapping
-    public List<Dish> getAll() {
-        return super.getAll();
+    public List<Dish> getAllByRestaurantIdAndLocalDate(@PathVariable int restaurantId) {
+        return super.getAllByRestaurantIdAndLocalDate(restaurantId);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -50,6 +50,7 @@ public class DishAdminController extends AbstractDishController {
         assureIdConsistent(dish, id);
         repository.getBelonged(restaurantId, id);
         service.save(restaurantId, dish);
+
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

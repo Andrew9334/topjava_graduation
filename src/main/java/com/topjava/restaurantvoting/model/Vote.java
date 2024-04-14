@@ -13,43 +13,45 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "vote", uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "restaurant_id", "date_time"},
-        name = "vote_unique_user_datetime_idx"))
+@Table(name = "vote")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor()
 @ToString(callSuper = true)
 public class Vote extends BaseEntity implements HasId {
 
-    @Column(name = "date_time", nullable = false)
-    private LocalDateTime dateTime;
+    @Column(name = "updated_date_time", nullable = false)
+    private LocalDateTime updatedDateTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "created_date_time", nullable = false)
+    private LocalDateTime createdDateTime;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @JsonIgnore
     private Restaurant restaurant;
 
-    public Vote(Integer id, LocalDateTime dateTime, User user, Restaurant restaurant) {
+    public Vote(Integer id, LocalDateTime updatedDateTime, User user, Restaurant restaurant) {
         super(id);
-        this.dateTime = dateTime;
+        this.updatedDateTime = updatedDateTime;
         this.user = user;
         this.restaurant = restaurant;
     }
 
     @Schema(hidden = true)
     public LocalDate getDate() {
-        return dateTime.toLocalDate();
+        return updatedDateTime.toLocalDate();
     }
 
     @Schema(hidden = true)
     public LocalTime getTime() {
-        return dateTime.toLocalTime();
+        return updatedDateTime.toLocalTime();
     }
 }

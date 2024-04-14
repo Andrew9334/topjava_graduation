@@ -1,7 +1,7 @@
 package com.topjava.restaurantvoting.web.user;
 
 import com.topjava.restaurantvoting.model.User;
-import com.topjava.restaurantvoting.to.UserTo;
+import com.topjava.restaurantvoting.to.UserRequestTo;
 import com.topjava.restaurantvoting.util.UsersUtil;
 import com.topjava.restaurantvoting.web.AuthUser;
 import jakarta.validation.Valid;
@@ -31,10 +31,10 @@ public class ProfileController extends AbstractUserController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<User> register(@Valid @RequestBody UserTo userTo) {
-        log.info("register {}", userTo);
-        checkNew(userTo);
-        User created = repository.prepareAndSave(UsersUtil.createNewFromTo(userTo));
+    public ResponseEntity<User> register(@Valid @RequestBody UserRequestTo userRequestTo) {
+        log.info("register {}", userRequestTo);
+        checkNew(userRequestTo);
+        User created = repository.prepareAndSave(UsersUtil.createNewFromTo(userRequestTo));
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL).build().toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
@@ -43,10 +43,10 @@ public class ProfileController extends AbstractUserController {
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public void update(@RequestBody @Valid UserTo userTo, @AuthenticationPrincipal AuthUser authUser) {
-        log.info("update {} with id={}", userTo, authUser.id());
-        assureIdConsistent(userTo, authUser.id());
+    public void update(@RequestBody @Valid UserRequestTo userRequestTo, @AuthenticationPrincipal AuthUser authUser) {
+        log.info("update {} with id={}", userRequestTo, authUser.id());
+        assureIdConsistent(userRequestTo, authUser.id());
         User user = authUser.getUser();
-        repository.prepareAndSave(UsersUtil.updateFromTo(user, userTo));
+        repository.prepareAndSave(UsersUtil.updateFromTo(user, userRequestTo));
     }
 }

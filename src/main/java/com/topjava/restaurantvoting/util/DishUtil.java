@@ -8,6 +8,6 @@ import lombok.experimental.UtilityClass;
 public class DishUtil {
 
     public static DishTo createTo(DishTo dishTo) {
-        return new DishTo(dishTo.getId(), dishTo.getDate(), dishTo.getPrice());
+        return new DishTo(dishTo.getId(), dishTo.getName(), dishTo.getDate(), dishTo.getPrice());
     }
 }

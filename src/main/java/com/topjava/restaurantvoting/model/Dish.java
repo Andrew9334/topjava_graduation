@@ -2,26 +2,32 @@ package com.topjava.restaurantvoting.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.topjava.restaurantvoting.HasId;
+import com.topjava.restaurantvoting.validation.NoHtmlValidator;
 import io.swagger.v3.oas.annotations.media.Schema;
 import com.topjava.restaurantvoting.HasIdAndEmail;
 import jakarta.persistence.*;
+import jakarta.validation.Constraint;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "dish", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "name"}, name = "dishes_unique_restaurant_datetime_idx")})
+@Table(name = "dish")
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(callSuper = true)
-public class Dish extends NamedEntity implements HasIdAndEmail {
+//@Retention(RetentionPolicy.RUNTIME)
+//@Constraint(validatedBy = NoHtmlValidator.class)
+public class Dish extends NamedEntity implements HasId {
 
-    @Column(name = "date")
+    @Column(name = "local_date")
     @NotNull
     private LocalDate date = LocalDate.now();
 
@@ -29,7 +35,7 @@ public class Dish extends NamedEntity implements HasIdAndEmail {
     @NotNull
     private Integer price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @JsonIgnore
@@ -51,11 +57,5 @@ public class Dish extends NamedEntity implements HasIdAndEmail {
     @Schema(hidden = true)
     public LocalDate getDate() {
         return date;
-    }
-
-
-    @Override
-    public String getEmail() {
-        return getEmail();
     }
 }

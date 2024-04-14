@@ -3,7 +3,9 @@ package com.topjava.restaurantvoting.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.topjava.restaurantvoting.HasIdAndEmail;
 import com.topjava.restaurantvoting.validation.NoHtml;
+import com.topjava.restaurantvoting.validation.NoHtmlValidator;
 import jakarta.persistence.*;
+import jakarta.validation.Constraint;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,13 +15,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.*;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor()
+//@Retention(RetentionPolicy.RUNTIME)
+//@Constraint(validatedBy = NoHtmlValidator.class)
 public class User extends NamedEntity implements HasIdAndEmail {
 
     @Column(name = "email", nullable = false, unique = true)
@@ -32,10 +38,11 @@ public class User extends NamedEntity implements HasIdAndEmail {
     @Column(name = "password", nullable = false)
     @NotBlank
     @Size(max = 128)
+    @NoHtml
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @Column(name = "enavled", nullable = false, columnDefinition = "bool default true")
+    @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled = true;
 
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()", updatable = false)

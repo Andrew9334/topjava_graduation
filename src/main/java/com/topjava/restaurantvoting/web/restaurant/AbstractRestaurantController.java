@@ -26,8 +26,8 @@ public abstract class AbstractRestaurantController {
         return ResponseEntity.of(repository.get(id));
     }
 
-    public List<Restaurant> getAll() {
+    public List<Restaurant> getAll(int restaurantId) {
         log.info("getAll restaurant");
-        return repository.findAll();
+        return repository.getAll(restaurantId);
     }
 }

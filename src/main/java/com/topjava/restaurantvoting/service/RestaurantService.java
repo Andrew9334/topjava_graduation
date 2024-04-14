@@ -1,5 +1,6 @@
 package com.topjava.restaurantvoting.service;
 
+import com.topjava.restaurantvoting.error.NotFoundException;
 import com.topjava.restaurantvoting.model.Restaurant;
 import com.topjava.restaurantvoting.repository.RestaurantRepository;
 import lombok.AllArgsConstructor;
@@ -15,5 +16,10 @@ public class RestaurantService {
     @Transactional
     public Restaurant save(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
+    }
+
+    public Restaurant getById(int restaurantId) {
+        return restaurantRepository.findById(restaurantId)
+                .orElseThrow(() -> new NotFoundException("Restaurant not found exception"));
     }
 }

@@ -10,19 +10,19 @@ import lombok.Value;
 
 @Value
 @EqualsAndHashCode(callSuper = true)
-public class UserTo extends NamedTo implements HasIdAndEmail {
+public class UserRequestTo extends NamedTo implements HasIdAndEmail {
 
     @Email
     @NotBlank
     @Size(max = 128)
     @NoHtml
-    String email;
+    private String email;
 
     @NotBlank
-    @Size(min = 5, max = 10000)
-    String password;
+    @NoHtml
+    private String password;
 
-    public UserTo(Integer id, String name, String email, String password) {
+    public UserRequestTo(Integer id, String name, String email, String password) {
         super(id, name);
         this.email = email;
         this.password = password;

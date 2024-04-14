@@ -9,12 +9,15 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 public class DishTo extends BaseTo {
 
-    LocalDate date;
+    private String name;
 
-    int price;
+    private LocalDate date;
 
-    public DishTo(Integer id, LocalDate date, int price) {
+    private int price;
+
+    public DishTo(Integer id, String name, LocalDate date, int price) {
         super(id);
+        this.name = name;
         this.date = date;
         this.price = price;
     }

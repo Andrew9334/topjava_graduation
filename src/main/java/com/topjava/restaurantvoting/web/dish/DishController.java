@@ -20,14 +20,14 @@ public class DishController extends AbstractDishController {
 
     @Override
     @GetMapping("{id}")
-    public ResponseEntity<Dish> get(int id, int restaurantId) {
+    public ResponseEntity<Dish> get(@PathVariable int id, @PathVariable int restaurantId) {
         return super.get(id, restaurantId);
     }
 
     @Override
     @GetMapping
-    public List<Dish> getAll() {
-        return super.getAll();
+    public List<Dish> getAllByRestaurantIdAndLocalDate(@PathVariable int restaurantId) {
+        return super.getAllByRestaurantIdAndLocalDate(restaurantId);
     }
 }
 

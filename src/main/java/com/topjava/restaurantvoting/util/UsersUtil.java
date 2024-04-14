@@ -2,21 +2,20 @@ package com.topjava.restaurantvoting.util;
 
 import com.topjava.restaurantvoting.model.Role;
 import com.topjava.restaurantvoting.model.User;
-import com.topjava.restaurantvoting.to.UserTo;
+import com.topjava.restaurantvoting.to.UserRequestTo;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class UsersUtil {
-    public static final int DEFAULT_CALORIES_PER_DAY = 2000;
 
-    public static User createNewFromTo(UserTo userTo) {
-        return new User(null, userTo.getName(), userTo.getEmail().toLowerCase(), userTo.getPassword(), Role.USER);
+    public static User createNewFromTo(UserRequestTo userRequestTo) {
+        return new User(null, userRequestTo.getName(), userRequestTo.getEmail().toLowerCase(), userRequestTo.getPassword(), Role.USER);
     }
 
-    public static User updateFromTo(User user, UserTo userTo) {
-        user.setName(userTo.getName());
-        user.setEmail(userTo.getEmail().toLowerCase());
-        user.setPassword(userTo.getPassword());
+    public static User updateFromTo(User user, UserRequestTo userRequestTo) {
+        user.setName(userRequestTo.getName());
+        user.setEmail(userRequestTo.getEmail().toLowerCase());
+        user.setPassword(userRequestTo.getPassword());
         return user;
     }
 }

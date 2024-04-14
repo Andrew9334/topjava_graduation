@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.topjava</groupId>
-    <artifactId>topjava_restraunt_voting</artifactId>
+    <artifactId>topjava-restraunt-voting</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>topjava_restraunt_voting</name>
-    <description>topjava_restaurant_voting</description>
+    <name>topjava-restraunt-voting</name>
+    <description>topjava-restaurant-voting</description>
 
     <properties>
         <java.version>21</java.version>

@@ -15,20 +15,15 @@ import java.util.List;
 
 import static com.topjava.restaurantvoting.validation.ValidationUtil.assureIdConsistent;
 import static com.topjava.restaurantvoting.validation.ValidationUtil.checkNew;
+import static com.topjava.restaurantvoting.web.restaurant.RestaurantController.REST_URL;
 
 @RestController
-@RequestMapping(value = RestaurantAdminController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @AllArgsConstructor
 public class RestaurantAdminController extends AbstractRestaurantController {
 
-    static final String REST_URL = "/api/admin/restaurant/";
-
-    @Override
-    @GetMapping("/{id}")
-    public ResponseEntity<Restaurant> get(@PathVariable("id") int id) {
-        return super.get(id);
-    }
+    static final String REST_URL = "/api/restaurant";
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -37,11 +32,11 @@ public class RestaurantAdminController extends AbstractRestaurantController {
         repository.deleteExisted(id);
     }
 
-    @Override
-    @GetMapping
-    public List<Restaurant> getAll() {
-        return super.getAll();
-    }
+//    @Override
+//    @GetMapping
+//    public List<Restaurant> getAll(int restaurantId) {
+//        return super.getAll(restaurantId);
+//    }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)

@@ -1,6 +1,7 @@
 package com.topjava.restaurantvoting.model;
 
 import com.topjava.restaurantvoting.HasId;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,12 +14,13 @@ import java.util.List;
 @Table(name = "restaurant", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"}, name = "restaurant_unique_idx")})
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor()
 @Cacheable
 public class Restaurant extends NamedEntity implements HasId {
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurant")
     @OrderBy("name asc")
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private List<Dish> dishes;
 
     public Restaurant(Integer id, String name) {
@@ -28,9 +30,5 @@ public class Restaurant extends NamedEntity implements HasId {
     public Restaurant(Integer id, String name, List<Dish> dishes) {
         super(id, name);
         this.dishes = dishes;
-    }
-
-    public List<Dish> getDishes() {
-        return dishes;
     }
 }
