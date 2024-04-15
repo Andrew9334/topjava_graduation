@@ -3,6 +3,7 @@ package com.topjava.restaurantvoting.web.vote;
 import com.topjava.restaurantvoting.AbstractControllerTest;
 import com.topjava.restaurantvoting.model.Vote;
 import com.topjava.restaurantvoting.repository.VoteRepository;
+import com.topjava.restaurantvoting.util.Constants;
 import com.topjava.restaurantvoting.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.topjava.restaurantvoting.web.restaurant.RestaurantTestData.*;
 import static com.topjava.restaurantvoting.web.user.UserTestData.*;
+
 import static com.topjava.restaurantvoting.web.vote.VoteController.REST_URL;
 import static com.topjava.restaurantvoting.web.vote.VoteTestData.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -23,26 +25,26 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class VoteControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL_SLASH = REST_URL + '/';
-
     @Autowired
     private VoteRepository repository;
 
+    static final String REST_URL_SLASH = REST_URL + "/";
+
     @Test
     @WithUserDetails(value = USER_MAIL)
-    void get() throws Exception {
-        perform(MockMvcRequestBuilders.get((REST_URL_SLASH + VOTE1_ID), USER_ID, REST1_ID))
+    void getAllForUser() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(VOTE_MATCHER.contentJson(VOTE1));
+                .andExpect(VOTE_MATCHER.contentJson(vote1));
     }
 
     @Test
     @WithUserDetails(value = USER_MAIL)
     void update() throws Exception {
         Vote updated = VoteTestData.getUpdated();
-        perform(MockMvcRequestBuilders.put((REST_URL_SLASH + VOTE1_ID), USER_ID, REST1_ID)
+        perform(MockMvcRequestBuilders.put((REST_URL_SLASH + VOTE1_ID), USER_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isNoContent());
@@ -54,7 +56,7 @@ class VoteControllerTest extends AbstractControllerTest {
     @WithUserDetails(value = USER_MAIL)
     void create() throws Exception {
         Vote newVote = VoteTestData.getNew();
-        ResultActions actions = perform(MockMvcRequestBuilders.post(REST_URL_SLASH, USER_ID, REST1_ID)
+        ResultActions actions = perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newVote)));
 
@@ -66,9 +68,9 @@ class VoteControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @WithUserDetails(value = USER_MAIL)
+    @WithUserDetails(value = ADMIN_MAIL)
     void delete() throws Exception {
-        perform(MockMvcRequestBuilders.delete((REST_URL_SLASH + VOTE1_ID), USER_ID, REST1_ID))
+        perform(MockMvcRequestBuilders.delete(REST_URL, VOTE1_ID))
                 .andDo(print())
                 .andExpect(status().isNoContent());
         assertFalse(repository.findById(VOTE1_ID).isPresent());

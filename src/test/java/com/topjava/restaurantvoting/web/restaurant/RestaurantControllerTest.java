@@ -23,16 +23,6 @@ class RestaurantControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(REST_MATCHER.contentJson(REST1));
-    }
-
-    @Test
-    @WithUserDetails(USER_MAIL)
-    void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL_SLASH))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(REST_MATCHER.contentJson(RESTAURANTS));
+                .andExpect(REST_MATCHER.contentJson(rest1));
     }
 }

@@ -23,7 +23,7 @@ import static com.topjava.restaurantvoting.web.restaurant.RestaurantController.R
 @AllArgsConstructor
 public class RestaurantAdminController extends AbstractRestaurantController {
 
-    static final String REST_URL = "/api/restaurant";
+//    static final String REST_URL = "/api/restaurant";
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -31,12 +31,6 @@ public class RestaurantAdminController extends AbstractRestaurantController {
         log.info("delete {}", id);
         repository.deleteExisted(id);
     }
-
-//    @Override
-//    @GetMapping
-//    public List<Restaurant> getAll(int restaurantId) {
-//        return super.getAll(restaurantId);
-//    }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)

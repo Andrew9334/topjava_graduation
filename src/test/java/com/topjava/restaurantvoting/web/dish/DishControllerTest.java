@@ -8,9 +8,12 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.time.LocalDate;
+
 import static com.topjava.restaurantvoting.web.dish.DishController.REST_URL;
 import static com.topjava.restaurantvoting.web.dish.DishTestData.*;
 import static com.topjava.restaurantvoting.web.restaurant.RestaurantTestData.REST1_ID;
+import static com.topjava.restaurantvoting.web.restaurant.RestaurantTestData.rest1;
 import static com.topjava.restaurantvoting.web.user.UserTestData.USER_MAIL;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -30,13 +33,13 @@ class DishControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(DISH_MATCHER.contentJson(DISH1_REST1));
+                .andExpect(DISH_MATCHER.contentJson(dish1Rest1));
     }
 
     @Test
     @WithUserDetails(value = USER_MAIL)
     void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(DishController.REST_URL, REST1_ID))
+        perform(MockMvcRequestBuilders.get(DishController.REST_URL, REST1_ID, LocalDate.now()))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

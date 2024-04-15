@@ -20,12 +20,6 @@ import java.time.LocalTime;
 @ToString(callSuper = true)
 public class Vote extends BaseEntity implements HasId {
 
-    @Column(name = "updated_date_time", nullable = false)
-    private LocalDateTime updatedDateTime;
-
-    @Column(name = "created_date_time", nullable = false)
-    private LocalDateTime createdDateTime;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", nullable = false)
@@ -37,6 +31,12 @@ public class Vote extends BaseEntity implements HasId {
     @JoinColumn(name = "restaurant_id", nullable = false)
     @JsonIgnore
     private Restaurant restaurant;
+
+    @Column(name = "created_date_time", nullable = false)
+    private LocalDateTime createdDateTime;
+
+    @Column(name = "updated_date_time", nullable = false)
+    private LocalDateTime updatedDateTime;
 
     public Vote(Integer id, LocalDateTime updatedDateTime, User user, Restaurant restaurant) {
         super(id);

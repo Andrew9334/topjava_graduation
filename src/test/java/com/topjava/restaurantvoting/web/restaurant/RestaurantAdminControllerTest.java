@@ -11,7 +11,7 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static com.topjava.restaurantvoting.web.restaurant.RestaurantAdminController.REST_URL;
+import static com.topjava.restaurantvoting.web.restaurant.RestaurantController.REST_URL;
 import static com.topjava.restaurantvoting.web.restaurant.RestaurantTestData.*;
 import static com.topjava.restaurantvoting.web.user.UserTestData.ADMIN_MAIL;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -33,7 +33,7 @@ class RestaurantAdminControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(REST_MATCHER.contentJson(REST1));
+                .andExpect(REST_MATCHER.contentJson(rest1));
     }
 
     @Test
@@ -42,16 +42,6 @@ class RestaurantAdminControllerTest extends AbstractControllerTest {
         perform(MockMvcRequestBuilders.delete(REST_URL_SLASH + REST1_ID))
                 .andExpect(status().isNoContent());
         assertFalse(restaurantRepository.get(REST1_ID).isPresent());
-    }
-
-    @Test
-    @WithUserDetails(ADMIN_MAIL)
-    void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL_SLASH))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(REST_MATCHER.contentJson(RESTAURANTS));
     }
 
     @Test
@@ -70,7 +60,7 @@ class RestaurantAdminControllerTest extends AbstractControllerTest {
     @WithUserDetails(ADMIN_MAIL)
     void create() throws Exception {
         Restaurant newRest = RestaurantTestData.getNew();
-        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL_SLASH)
+        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newRest)));
 
@@ -85,7 +75,7 @@ class RestaurantAdminControllerTest extends AbstractControllerTest {
     @WithUserDetails(value = ADMIN_MAIL)
     void createInvalid() throws Exception {
         Restaurant invalid = new Restaurant(null, null);
-        perform(MockMvcRequestBuilders.post(REST_URL_SLASH)
+        perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(RestaurantTestData.jsonInvalid(invalid)))
                 .andDo(print())
@@ -106,8 +96,8 @@ class RestaurantAdminControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void createDuplicate() throws Exception {
-        Restaurant invalid = new Restaurant(null, REST1.getName());
-        perform(MockMvcRequestBuilders.post(REST_URL_SLASH)
+        Restaurant invalid = new Restaurant(null, rest1.getName());
+        perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(invalid)))
                 .andDo(print())

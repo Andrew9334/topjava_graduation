@@ -3,7 +3,7 @@ package com.topjava.restaurantvoting.web.user;
 import com.topjava.restaurantvoting.AbstractControllerTest;
 import com.topjava.restaurantvoting.model.User;
 import com.topjava.restaurantvoting.repository.UserRepository;
-import com.topjava.restaurantvoting.to.UserTo;
+import com.topjava.restaurantvoting.to.UserRequestTo;
 import com.topjava.restaurantvoting.util.JsonUtil;
 import com.topjava.restaurantvoting.util.UsersUtil;
 import org.junit.jupiter.api.Test;
@@ -42,7 +42,7 @@ class ProfileControllerTest extends AbstractControllerTest {
 
     @Test
     void register() throws Exception {
-        UserTo newTo = new UserTo(null, "newName", "newemail@ya.ru", "newPassword");
+        UserRequestTo newTo = new UserRequestTo(null, "newName", "newemail@ya.ru", "newPassword");
         User newUser = UsersUtil.createNewFromTo(newTo);
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -60,7 +60,7 @@ class ProfileControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = USER_MAIL)
     void update() throws Exception {
-        UserTo updatedTo = new UserTo(null, "newName", USER_MAIL, "newPassword");
+        UserRequestTo updatedTo = new UserRequestTo(null, "newName", USER_MAIL, "newPassword");
         perform(MockMvcRequestBuilders.put(REST_URL).contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updatedTo)))
                 .andDo(print())
@@ -71,7 +71,7 @@ class ProfileControllerTest extends AbstractControllerTest {
 
     @Test
     void registerInvalid() throws Exception {
-        UserTo newTo = new UserTo(null, null, null, null);
+        UserRequestTo newTo = new UserRequestTo(null, null, null, null);
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newTo)))
@@ -93,7 +93,7 @@ class ProfileControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = USER_MAIL)
     void updateDuplicate() throws Exception {
-        UserTo updatedTo = new UserTo(null, "newName", ADMIN_MAIL, "newPassword");
+        UserRequestTo updatedTo = new UserRequestTo(null, "newName", ADMIN_MAIL, "newPassword");
         perform(MockMvcRequestBuilders.put(REST_URL).contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updatedTo)))
                 .andDo(print())

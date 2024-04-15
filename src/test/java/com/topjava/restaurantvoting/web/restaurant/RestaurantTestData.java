@@ -1,12 +1,9 @@
 package com.topjava.restaurantvoting.web.restaurant;
 
 import com.topjava.restaurantvoting.MatcherFactory;
-import com.topjava.restaurantvoting.model.Dish;
 import com.topjava.restaurantvoting.model.Restaurant;
 import com.topjava.restaurantvoting.util.JsonUtil;
 
-import java.time.Month;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static java.time.LocalDateTime.of;
@@ -21,11 +18,11 @@ public class RestaurantTestData {
     public static final int REST2_ID = 2;
     public static final int REST3_ID = 3;
 
-    public static final Restaurant REST1 = new Restaurant(REST1_ID, "Muse");
-    public static final Restaurant REST2 = new Restaurant(REST2_ID, "Porto Bello");
-    public static final Restaurant REST3 = new Restaurant(REST3_ID, "Oniro");
+    public static final Restaurant rest1 = new Restaurant(REST1_ID, "Muse");
+    public static final Restaurant rest2 = new Restaurant(REST2_ID, "Porto Bello");
+    public static final Restaurant rest3 = new Restaurant(REST3_ID, "Oniro");
 
-    public static final List<Restaurant> RESTAURANTS = List.of(REST1, REST3, REST2);
+    public static final List<Restaurant> RESTAURANTS = List.of(rest1, rest3, rest2);
 
     public static Restaurant getNew() {
         return new Restaurant(null, "Porto");

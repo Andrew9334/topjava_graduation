@@ -20,13 +20,16 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+import static com.topjava.restaurantvoting.validation.ValidationUtil.assureIdConsistent;
+import static com.topjava.restaurantvoting.validation.ValidationUtil.checkNew;
+
 @RestController
 @RequestMapping(value = VoteController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @RequiredArgsConstructor
 public class VoteController {
 
-    static final String REST_URL = "/api/votes";
+    public static final String REST_URL = "/api/votes";
 
     private final VoteService voteService;
     private final VoteMapper voteMapper;
@@ -43,11 +46,11 @@ public class VoteController {
         voteService.deleteVoteById(id, authUser.getUser());
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public VoteResponseTo update(@Valid @RequestBody VoteRequestTo request, @PathVariable int id, @AuthenticationPrincipal AuthUser authUser) {
         int userId = authUser.id();
         log.info("update {} for user {}", request, userId);
-//        assureIdConsistent(request, id);
         Vote vote = voteMapper.toEntity(request);
         vote.setId(id);
         Vote updatedVote = voteService.update(userId, vote);
@@ -57,10 +60,9 @@ public class VoteController {
     @PostMapping
     public ResponseEntity<Vote> create(@Valid @RequestBody VoteRequestTo vote, @AuthenticationPrincipal AuthUser authUser) {
         log.info("create {} for user", vote);
-//        checkNew(vote);
         Vote created = voteService.createVote(authUser.getUser().getId(), vote.getRestaurantId());
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(Constants.VOTE_URL + "/{id}")
+                .path(REST_URL + "/{id}")
                 .buildAndExpand(authUser.getUser().getId(), vote.getRestaurantId(), created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }

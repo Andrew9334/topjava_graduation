@@ -11,14 +11,11 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
 import static com.topjava.restaurantvoting.web.dish.DishAdminController.REST_URL;
 import static com.topjava.restaurantvoting.web.dish.DishTestData.*;
-import static com.topjava.restaurantvoting.web.restaurant.RestaurantTestData.REST1;
 import static com.topjava.restaurantvoting.web.restaurant.RestaurantTestData.REST1_ID;
 import static com.topjava.restaurantvoting.web.user.UserTestData.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,7 +37,7 @@ class DishAdminControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(DISH_MATCHER.contentJson(DISH1_REST1));
+                .andExpect(DISH_MATCHER.contentJson(dish1Rest1));
     }
 
     @Test
@@ -77,7 +74,7 @@ class DishAdminControllerTest extends AbstractControllerTest {
     @WithUserDetails(value = ADMIN_MAIL)
     void create() throws Exception {
         Dish newDish = DishTestData.getNew();
-        ResultActions actions = perform(MockMvcRequestBuilders.post(REST_URL_SLASH, REST1_ID)
+        ResultActions actions = perform(MockMvcRequestBuilders.post(REST_URL, REST1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newDish)));
 
@@ -113,7 +110,7 @@ class DishAdminControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void createDuplicate() throws Exception {
-        Dish invalid = new Dish(null, DISH1_REST1.getName(), DISH1_REST1.getDate(), DISH1_REST1.getPrice());
+        Dish invalid = new Dish(null, dish1Rest1.getName(), dish1Rest1.getDate(), dish1Rest1.getPrice());
         perform(MockMvcRequestBuilders.post(REST_URL, REST1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(invalid)))
