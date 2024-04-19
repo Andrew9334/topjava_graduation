@@ -5,11 +5,9 @@ import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 
 import java.util.List;
 
-import static java.util.Arrays.asList;
-
-public class SimpleCacheCustomizer implements CacheManagerCustomizer<ConcurrentMapCacheManager> {
+public class CacheCustomizer implements CacheManagerCustomizer<ConcurrentMapCacheManager> {
     @Override
     public void customize(ConcurrentMapCacheManager cacheManager) {
-        cacheManager.setCacheNames(List.of("restaurant"));
+        cacheManager.setCacheNames(List.of("restaurant", "user", "dish"));
     }
 }

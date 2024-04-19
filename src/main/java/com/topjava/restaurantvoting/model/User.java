@@ -84,6 +84,20 @@ public class User extends NamedEntity implements HasIdAndEmail {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        User user = (User) o;
+        return enabled == user.enabled && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(registered, user.registered) && Objects.equals(roles, user.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), email, password, enabled, registered, roles);
+    }
+
+    @Override
     public String toString() {
         return "User:" + id + '[' + email + ']';
     }

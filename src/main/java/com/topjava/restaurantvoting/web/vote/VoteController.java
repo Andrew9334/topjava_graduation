@@ -8,6 +8,7 @@ import com.topjava.restaurantvoting.to.VoteResponseTo;
 import com.topjava.restaurantvoting.util.Constants;
 import com.topjava.restaurantvoting.web.AuthUser;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ import static com.topjava.restaurantvoting.validation.ValidationUtil.checkNew;
 @RestController
 @RequestMapping(value = VoteController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class VoteController {
 
     public static final String REST_URL = "/api/votes";

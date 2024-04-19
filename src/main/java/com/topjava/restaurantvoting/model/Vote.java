@@ -11,6 +11,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "vote")
@@ -53,5 +54,19 @@ public class Vote extends BaseEntity implements HasId {
     @Schema(hidden = true)
     public LocalTime getTime() {
         return updatedDateTime.toLocalTime();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Vote vote = (Vote) o;
+        return Objects.equals(user, vote.user) && Objects.equals(restaurant, vote.restaurant) && Objects.equals(createdDateTime, vote.createdDateTime) && Objects.equals(updatedDateTime, vote.updatedDateTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), user, restaurant, createdDateTime, updatedDateTime);
     }
 }

@@ -16,6 +16,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "dish")
@@ -23,8 +24,6 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(callSuper = true)
-//@Retention(RetentionPolicy.RUNTIME)
-//@Constraint(validatedBy = NoHtmlValidator.class)
 public class Dish extends NamedEntity implements HasId {
 
     @Column(name = "local_date")
@@ -57,5 +56,19 @@ public class Dish extends NamedEntity implements HasId {
     @Schema(hidden = true)
     public LocalDate getDate() {
         return date;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Dish dish = (Dish) o;
+        return Objects.equals(date, dish.date) && Objects.equals(price, dish.price);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), date, price);
     }
 }
