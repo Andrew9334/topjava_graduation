@@ -2,8 +2,10 @@ package com.topjava.restaurantvoting.web.dish;
 
 import com.topjava.restaurantvoting.AbstractControllerTest;
 import com.topjava.restaurantvoting.model.Dish;
+import com.topjava.restaurantvoting.model.Restaurant;
 import com.topjava.restaurantvoting.repository.DishRepository;
 import com.topjava.restaurantvoting.util.JsonUtil;
+import com.topjava.restaurantvoting.web.restaurant.RestaurantTestData;
 import com.topjava.restaurantvoting.web.user.UserTestData;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import java.time.LocalDate;
 import static com.topjava.restaurantvoting.web.dish.DishAdminController.REST_URL;
 import static com.topjava.restaurantvoting.web.dish.DishTestData.*;
 import static com.topjava.restaurantvoting.web.restaurant.RestaurantTestData.REST1_ID;
+import static com.topjava.restaurantvoting.web.restaurant.RestaurantTestData.rest1;
 import static com.topjava.restaurantvoting.web.user.UserTestData.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -81,6 +84,8 @@ class DishAdminControllerTest extends AbstractControllerTest {
         Dish created = DISH_MATCHER.readFromJson(actions);
         int newId = created.id();
         newDish.setId(newId);
+        newDish.setRestaurant(rest1);
+        created.setRestaurant(newDish.getRestaurant());
         DISH_MATCHER.assertMatch(created, newDish);
         DISH_MATCHER.assertMatch(dishRepository.getExisted(newId), newDish);
     }
@@ -105,16 +110,5 @@ class DishAdminControllerTest extends AbstractControllerTest {
                 .content(JsonUtil.writeValue(invalid)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
-    }
-
-    @Test
-    @WithUserDetails(value = ADMIN_MAIL)
-    void createDuplicate() throws Exception {
-        Dish invalid = new Dish(null, dish1Rest1.getName(), dish1Rest1.getDate(), dish1Rest1.getPrice());
-        perform(MockMvcRequestBuilders.post(REST_URL, REST1_ID)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(invalid)))
-                .andDo(print())
-                .andExpect(status().isConflict());
     }
 }

@@ -2,8 +2,10 @@ package com.topjava.restaurantvoting.web.dish;
 
 import com.topjava.restaurantvoting.MatcherFactory;
 import com.topjava.restaurantvoting.model.Dish;
+import com.topjava.restaurantvoting.model.Restaurant;
 import com.topjava.restaurantvoting.to.DishTo;
 import com.topjava.restaurantvoting.util.JsonUtil;
+import com.topjava.restaurantvoting.web.restaurant.RestaurantTestData;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,12 +20,12 @@ public class DishTestData {
     public static final int DISH_REST2_ID = 8;
     public static final int DISH_REST3_ID = 16;
 
-    public static final Dish dish1Rest1 = new Dish(DISH_REST1_ID, "Beef steak", LocalDate.now(), 500, rest1);
-    public static final Dish dish2Rest1 = new Dish(DISH_REST1_ID, "Bread", LocalDate.now(), 150, rest1);
-    public static final Dish dish1Rest2 = new Dish(DISH_REST2_ID, "Margarita", LocalDate.now(), 300, rest2);
-    public static final Dish dish2Rest2 = new Dish(DISH_REST2_ID, "Soup", LocalDate.now(), 250, rest2);
-    public static final Dish dish1Rest3 = new Dish(DISH_REST3_ID, "Salad", LocalDate.now(), 200, rest2);
-    public static final Dish dish2Rest3 = new Dish(DISH_REST3_ID, "Grilled ribs", LocalDate.now(), 250, rest2);
+    public static final Dish dish1Rest1 = new Dish(DISH_REST1_ID, "Beef steak",  LocalDate.of(2024, 4, 20), 500, null);
+    public static final Dish dish2Rest1 = new Dish(DISH_REST1_ID + 3, "Bread", LocalDate.of(2024, 4, 20), 150, null);
+    public static final Dish dish1Rest2 = new Dish(DISH_REST2_ID, "Margarita", LocalDate.of(2024, 4, 20), 300, rest2);
+    public static final Dish dish2Rest2 = new Dish(DISH_REST2_ID, "Soup", LocalDate.of(2024, 4, 20), 250, rest2);
+    public static final Dish dish1Rest3 = new Dish(DISH_REST3_ID, "Salad", LocalDate.of(2024, 4, 20), 200, rest2);
+    public static final Dish dish2Rest3 = new Dish(DISH_REST3_ID, "Grilled ribs", LocalDate.of(2024, 4, 20), 250, rest2);
 
     public static MatcherFactory.Matcher<DishTo> DISH_TO_MATCHER = MatcherFactory.usingEqualsComparator(DishTo.class);
 
@@ -32,7 +34,7 @@ public class DishTestData {
     public static final List<Dish> DISHES_REST3 = List.of(dish1Rest3, dish2Rest3);
 
     public static Dish getNew() {
-        return new Dish(null, "Created dish", LocalDate.now(), 100, null);
+        return new Dish(null, "Created dish", LocalDate.of(2024, 4, 10), 100, null);
     }
 
     public static Dish getUpdated() {

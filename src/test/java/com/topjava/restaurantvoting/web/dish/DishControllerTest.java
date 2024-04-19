@@ -39,7 +39,7 @@ class DishControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = USER_MAIL)
     void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(DishController.REST_URL, REST1_ID, LocalDate.now()))
+        perform(MockMvcRequestBuilders.get(DishController.REST_URL, REST1_ID))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

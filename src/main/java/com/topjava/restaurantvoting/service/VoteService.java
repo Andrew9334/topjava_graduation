@@ -47,7 +47,6 @@ public class VoteService {
     @Transactional
     public Vote update(int userId, Vote vote) {
         Restaurant restaurant = restaurantService.getById(vote.getRestaurant().getId());
-//        User user = userService.getById(userId);
         if (!voteRepository.existsByUserIdAndRestaurantId(userId, restaurant.getId())) {
             throw new VoteNotFoundException(String.format("Vote '%s' is not found", vote.id()));
         }
