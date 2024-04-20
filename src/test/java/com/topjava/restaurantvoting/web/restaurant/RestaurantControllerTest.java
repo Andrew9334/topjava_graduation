@@ -1,7 +1,9 @@
 package com.topjava.restaurantvoting.web.restaurant;
 
 import com.topjava.restaurantvoting.AbstractControllerTest;
+import com.topjava.restaurantvoting.repository.RestaurantRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -16,6 +18,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class RestaurantControllerTest extends AbstractControllerTest {
     static final String REST_URL_SLASH = REST_URL + "/";
+
+    @Autowired
+    private RestaurantRepository restaurantRepository;
+
     @Test
     @WithUserDetails(ADMIN_MAIL)
     void get() throws Exception {
