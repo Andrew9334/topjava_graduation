@@ -3,6 +3,7 @@ package com.topjava.restaurantvoting.repository;
 import com.topjava.restaurantvoting.error.NotFoundException;
 import com.topjava.restaurantvoting.model.User;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
@@ -10,6 +11,7 @@ import java.util.Optional;
 import static com.topjava.restaurantvoting.config.SecurityConfig.PASSWORD_ENCODER;
 
 
+@Repository
 @Transactional(readOnly = true)
 public interface UserRepository extends BaseRepository<User> {
 

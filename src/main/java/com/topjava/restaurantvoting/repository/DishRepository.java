@@ -3,12 +3,14 @@ package com.topjava.restaurantvoting.repository;
 import com.topjava.restaurantvoting.error.DataConflictException;
 import com.topjava.restaurantvoting.model.Dish;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 @Transactional(readOnly = true)
 public interface DishRepository extends BaseRepository<Dish> {
 
