@@ -29,6 +29,6 @@ public abstract class AbstractDishController {
 
     public List<Dish> getAllByRestaurantIdAndLocalDate(int restaurantId) {
         log.info("getAll dishes");
-        return repository.getAllByRestaurantIdAndLocalDate(restaurantId, LocalDate.now());
+        return repository.getAllByRestaurantIdAndLocalDate(restaurantId, LocalDate.of(2024, 04, 20));
     }
 }
