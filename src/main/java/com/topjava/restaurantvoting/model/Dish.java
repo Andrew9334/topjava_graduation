@@ -29,7 +29,7 @@ public class Dish extends NamedEntity implements HasId {
     @NotNull
     private Integer price;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @JsonIgnore

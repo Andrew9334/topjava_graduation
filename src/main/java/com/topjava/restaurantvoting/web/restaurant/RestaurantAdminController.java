@@ -22,8 +22,6 @@ import static com.topjava.restaurantvoting.web.restaurant.RestaurantController.R
 @AllArgsConstructor
 public class RestaurantAdminController extends AbstractRestaurantController {
 
-//    static final String REST_URL = "/api/restaurant";
-
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
