@@ -3,18 +3,13 @@ package com.topjava.restaurantvoting.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.topjava.restaurantvoting.HasId;
-import com.topjava.restaurantvoting.validation.NoHtmlValidator;
 import io.swagger.v3.oas.annotations.media.Schema;
-import com.topjava.restaurantvoting.HasIdAndEmail;
 import jakarta.persistence.*;
-import jakarta.validation.Constraint;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.time.LocalDate;
 import java.util.Objects;
 

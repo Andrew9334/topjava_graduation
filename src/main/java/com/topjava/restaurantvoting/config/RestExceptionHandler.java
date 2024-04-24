@@ -1,5 +1,6 @@
 package com.topjava.restaurantvoting.config;
 
+import com.topjava.restaurantvoting.error.*;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ValidationException;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
-import com.topjava.restaurantvoting.error.*;
 
 import java.io.FileNotFoundException;
 import java.net.URI;

@@ -1,7 +1,6 @@
 package com.topjava.restaurantvoting.repository;
 
 import com.topjava.restaurantvoting.error.DataConflictException;
-import com.topjava.restaurantvoting.model.User;
 import com.topjava.restaurantvoting.model.Vote;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

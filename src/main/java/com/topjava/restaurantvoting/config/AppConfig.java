@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.ProblemDetail;
-//import ru.javaops.topjava.util.JsonUtil;
 
 import java.sql.SQLException;
 import java.util.Map;

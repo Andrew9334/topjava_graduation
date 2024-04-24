@@ -3,8 +3,8 @@ package com.topjava.restaurantvoting.web;
 import com.topjava.restaurantvoting.model.Role;
 import com.topjava.restaurantvoting.model.User;
 import lombok.Getter;
-import org.springframework.security.core.Authentication;
 import org.springframework.lang.NonNull;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import static java.util.Objects.requireNonNull;

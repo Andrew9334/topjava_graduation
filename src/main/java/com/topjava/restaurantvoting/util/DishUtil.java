@@ -1,6 +1,5 @@
 package com.topjava.restaurantvoting.util;
 
-import com.topjava.restaurantvoting.model.Dish;
 import com.topjava.restaurantvoting.to.DishTo;
 import lombok.experimental.UtilityClass;
 

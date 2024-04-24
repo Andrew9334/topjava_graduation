@@ -3,7 +3,6 @@ package com.topjava.restaurantvoting.util;
 import lombok.experimental.UtilityClass;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @UtilityClass
 public class DateTimeUtil {

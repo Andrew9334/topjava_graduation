@@ -12,14 +12,12 @@ import com.topjava.restaurantvoting.repository.UserRepository;
 import com.topjava.restaurantvoting.repository.VoteRepository;
 import com.topjava.restaurantvoting.util.DateTimeUtil;
 import lombok.AllArgsConstructor;
-import lombok.val;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
