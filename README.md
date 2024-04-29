@@ -15,7 +15,6 @@ To build a voting system for deciding where to have lunch.
 * If a user votes again the same day:
   - If it was before 11:00AM we assume that he changed his mind.
   - If it was after 11:00AM then it is too late, vote can't be changed
-  - 
 Each restaurant provides a new menu each day.
 
 As a result, provide a link to GitHub repository. It should contain the code, README.md with an API documentation and 
